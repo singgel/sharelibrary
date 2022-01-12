@@ -1,4 +1,4 @@
-  #!groovy
+
 
     // 引用共享库
     @Library("jenkins_shareLibrary")
