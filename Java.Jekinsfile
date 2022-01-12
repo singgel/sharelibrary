@@ -1,0 +1,67 @@
+  #!groovy
+
+    // 引用共享库
+    @Library("jenkins_shareLibrary")
+    // 应用共享库中的方法
+    def tools = new org.devops.tools()
+
+
+    pipeline
+    {
+        agent
+        {
+          label 'xueqiu-ack-jnlp'
+        }
+
+        tools
+        {
+          maven 'maven-3.8.4'
+        }
+        stages
+        {
+            stage('Checkout')
+            {
+                steps {
+                    echo '从GitHub下载工程的源码'
+                    checkout scm
+                    script {
+                          build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                    }
+                    sh 'echo${build_tag}'
+                }
+            }
+            stage('Maven Build')
+            {
+                steps
+                {
+                  echo '开始MVN编译构建'
+                  tools.PrintMes("编译打包","green")
+                  mvnBuild()
+                }
+            }
+            stage('Docker Build')
+            {
+              steps
+              {
+                echo '开始Docker镜像构建'
+                //执行部署脚本
+                sh "ls -l xueqiu-push-user-server/target"
+                echo "build ......"
+                sh "docker login xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com -u admin -p Xq-Harbor-Aliyun-K8s"
+                sh "docker build -t lib/xueqiu-push-user:v1.2 -f jenkins/Dockerfile ."
+                sh "docker images"
+              }
+            }
+            stage('Docker Deploy')
+            {
+              steps
+              {
+                echo '将构建结果上传到Harbor镜像仓库'
+                sh "docker tag lib/xueqiu-push-user:v1.2 xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/xueqiu-push-user:v1.2"
+                sh "docker push xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/xueqiu-push-user:v1.2"
+                echo '传送完毕'
+               }
+        }    }
+
+    }
+
