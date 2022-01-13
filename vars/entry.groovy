@@ -1,6 +1,6 @@
 import com.xueqiu.infra.cd.Git
 
-def call(Map config:[:]) {
+def call(Map config=[:]) {
 
     log.i config
 
