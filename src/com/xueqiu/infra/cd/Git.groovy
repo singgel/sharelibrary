@@ -1,7 +1,7 @@
 package com.xueqiu.infra.cd
 
 def clone(repo) {
-    git url:"${repo}"
+    sh("pwd")
     log.i 'git clone完成'
 }
 
