@@ -24,7 +24,7 @@ def call(Map config=[:]) {
                                     echo '从GitHub下载工程的源码'
                                     script {
                                         log.i 'clone repository'
-                                        git.clone(config.git_repo)
+                                        git.clone(GIT_REVISION)
                                     }
                                     checkout pipeline
                                     script {

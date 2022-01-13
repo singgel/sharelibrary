@@ -1,7 +1,8 @@
 package com.xueqiu.infra.cd
 
-def clone(repo) {
+def clone(branch) {
     sh("pwd")
+    sh("checkout ${branch}")
     log.i 'git clone完成'
 }
 
