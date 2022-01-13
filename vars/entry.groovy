@@ -2,7 +2,7 @@ import com.xueqiu.infra.cd.Git
 
 def call(Map config=[:]) {
 
-    log.i config
+    log.i 'input params'
 
    def git = new Git()
 
