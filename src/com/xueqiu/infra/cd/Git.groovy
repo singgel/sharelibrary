@@ -4,7 +4,7 @@ def clone(branch,repo,credentialsId) {
     try {
         log.i '克隆 ' + branch + ' from ' + repo
 
-        git credentialsId: credentials,
+        git credentialsId: credentialsId,
                 branch: branch,
                 url: repo
     }
