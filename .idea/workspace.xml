@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57f7f3f2-0774-47af-acc9-f80af2caaf71" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="8" column="72" selection-start-line="8" selection-start-column="72" selection-end-line="8" selection-end-column="72" />
+            <state relative-caret-position="270">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -118,8 +119,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2010" />
-    <option name="y" value="296" />
+    <option name="x" value="1824" />
+    <option name="y" value="-574" />
     <option name="width" value="2560" />
     <option name="height" value="1415" />
   </component>
@@ -238,15 +239,15 @@
       <option name="presentableId" value="Default" />
       <updated>1642064940253</updated>
       <workItem from="1642064942751" duration="1171000" />
-      <workItem from="1642066142750" duration="14537000" />
+      <workItem from="1642066142750" duration="14982000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15708000" />
+    <option name="totallyTimeSpent" value="16153000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2119" y="299" width="2560" height="1415" extended-state="0" />
+    <frame x="1824" y="-574" width="2560" height="1415" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12409928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -362,8 +363,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="8" column="72" selection-start-line="8" selection-start-column="72" selection-end-line="8" selection-end-column="72" />
+        <state relative-caret-position="270">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
