@@ -21,3 +21,5 @@ def uploadToHarbor(projectName,version) {
     sh "docker push xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${projectName}:${version}"
     echo '传送完毕'
 }
+
+return this

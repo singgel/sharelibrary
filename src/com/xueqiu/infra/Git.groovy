@@ -9,16 +9,21 @@ def clone(branch,repo,credentialsId) {
                 url: repo
     }
     catch (e) {
-        log.e 'Ops! Error occurred during git checkout'
+        log.e 'Ops! Error occurred during git clone'
         throw e
     }
 }
 
 def build() {
-    log.i 'build'
+ try {
+    log.i '开始打包'
     sh("pwd")
     sh 'mvn clean package -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -gs /home/jenkins/settings/settings.xml'
     log.i '打包完成'
+ }catch(e) {
+    log.e 'Ops! Error occurred during mvn package'
+    throw e
+ }
 }
 
 return this
