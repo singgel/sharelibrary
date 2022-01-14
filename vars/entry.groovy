@@ -45,6 +45,13 @@ def call() {
                                    }
                                 }
                             }
+                            stage('Docker Upload') {
+                                steps {
+                                    script {
+                                        docker.uploadToHarbor(projectName,version)
+                                    }
+                                }
+                            }
                         }
             }
 
