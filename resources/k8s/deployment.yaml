@@ -31,7 +31,7 @@ spec:
             - name: CONTAINER_PROGRAM
               value: APP
           image: >-
-            xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/{{CONTAINER_PROJ}}:{{GIT_BRANCH}}-{{GIT_VERSION}}
+            xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/{{CONTAINER_PROJ}}:{{CONTAINER_ENV}}-{{GIT_VERSION}}
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
