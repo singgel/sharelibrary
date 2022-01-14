@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57f7f3f2-0774-47af-acc9-f80af2caaf71" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vars/entry.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/entry.groovy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1168">
-              <caret line="56" column="37" lean-forward="true" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
+            <state relative-caret-position="521">
+              <caret line="61" column="44" lean-forward="true" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -36,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+            <state relative-caret-position="1530">
+              <caret line="51" column="20" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -119,9 +120,9 @@
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/docker.groovy" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy" />
         <option value="$PROJECT_DIR$/resources/docker/Dockerfile" />
-        <option value="$PROJECT_DIR$/vars/entry.groovy" />
         <option value="$PROJECT_DIR$/resources/k8s/deployment.yaml" />
         <option value="$PROJECT_DIR$/resources/shell/deploy_2_replace.sh" />
+        <option value="$PROJECT_DIR$/vars/entry.groovy" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" />
       </list>
     </option>
@@ -253,16 +254,15 @@
       <option name="presentableId" value="Default" />
       <updated>1642064940253</updated>
       <workItem from="1642064942751" duration="1171000" />
-      <workItem from="1642066142750" duration="18247000" />
+      <workItem from="1642066142750" duration="18510000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19418000" />
+    <option name="totallyTimeSpent" value="19681000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1718" y="-557" width="2560" height="1415" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12409928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -347,16 +347,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1168">
-          <caret line="56" column="37" lean-forward="true" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/shell/deploy_1_stop.sh">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -386,10 +376,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="61" column="44" lean-forward="true" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+        <state relative-caret-position="1530">
+          <caret line="51" column="20" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
         </state>
       </provider>
     </entry>

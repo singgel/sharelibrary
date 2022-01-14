@@ -46,7 +46,6 @@ def call() {
                                 steps {
                                    script {
                                        docker.build(projectName,version)
-                                       docker.uploadToHarbor(projectName,version)
                                    }
                                 }
                             }
