@@ -11,7 +11,6 @@ def call() {
     def branch_name = "${env.git_branchName}"
     def credentialsId = "${env.git_credentialsId}"
     def repo = "${env.git_repo}"
-    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     def container_env = "${env.container_env}"
     def container_proj = "${env.container_proj}"
     def build_zip_path = "${env.build_zip_path}"
@@ -49,21 +48,21 @@ def call() {
                             stage('生成镜像') {
                                 steps {
                                     script {
-                                        docker.build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir, version)
+                                        docker.build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir)
                                     }
                                 }
                             }
                             stage('上传镜像') {
                                 steps {
                                     script {
-                                        docker.uploadToHarbor(container_proj, container_env, version)
+                                        docker.uploadToHarbor(container_proj, container_env)
                                     }
                                 }
                             }
                             stage('部署') {
                                 steps {
                                     script {
-                                        docker.deploy(container_proj, container_env, version)
+                                        docker.deploy(container_proj, container_env)
                                     }
                                 }
                             }

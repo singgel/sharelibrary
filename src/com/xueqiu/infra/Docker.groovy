@@ -1,6 +1,7 @@
 package com.xueqiu.infra
 
-def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir, version) {
+def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir) {
+    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
     sh "echo '-----BEGIN CERTIFICATE-----\n" +
             "MIIDEzCCAfugAwIBAgIQMEl2iGP3MmlNmIXeN5W+7DANBgkqhkiG9w0BAQsFADAU\n" +
@@ -50,8 +51,9 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
 }
 
 
-def uploadToHarbor(container_proj, container_env, version) {
+def uploadToHarbor(container_proj, container_env) {
     echo '将构建结果上传到Harbor镜像仓库'
+    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     sh "docker login xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com -u admin -p Xq-Harbor-Aliyun-K8s"
     sh "docker tag lib/${container_proj}:${container_env}-${version} xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${container_proj}:${container_env}-${version}"
     sh "docker push xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${container_proj}:${container_env}-${version}"
@@ -60,8 +62,9 @@ def uploadToHarbor(container_proj, container_env, version) {
 }
 
 
-def deploy(container_proj, container_env, version) {
+def deploy(container_proj, container_env) {
     log.i '开始部署'
+    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     def deploymentFile = libraryResource("k8s/deployment.yaml")
     writeFile file: './deployment.yaml', text: deploymentFile
 
