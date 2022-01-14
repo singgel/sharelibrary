@@ -1,9 +1,5 @@
 package com.xueqiu.infra
 
-def commitID(int len=41){
-    return sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()[0..len]
-}
-
 def clone(branch,repo,credentialsId) {
     try {
         log.i '克隆 ' + branch + ' from ' + repo
