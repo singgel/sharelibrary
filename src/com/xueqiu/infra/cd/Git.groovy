@@ -1,6 +1,6 @@
 package com.xueqiu.infra.cd
 
-def clone(branch) {
+def build(branch) {
     log.i '分支:' + branch
     sh("pwd")
     sh("git checkout ${branch}")

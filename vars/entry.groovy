@@ -6,7 +6,7 @@ def call(Map config=[:]) {
 
    def git = new Git()
 
-    def version = ${env.GIT_REVISION}
+    def branchName = "${env.GIT_VERSION}"
 
     pipeline
             {
@@ -25,8 +25,8 @@ def call(Map config=[:]) {
                                 steps {
                                     echo '从GitHub下载工程的源码'
                                     script {
-                                        log.i 'clone repository'
-                                        git.clone(version)
+                                        log.i 'build repository'
+                                        git.build(branchName)
                                     }
                                     script {
                                         build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
