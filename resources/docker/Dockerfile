@@ -3,10 +3,11 @@ MAINTAINER hekuangsheng@xueqiu.com
 
 ENV CONTAINER_ENV {{CONTAINER_ENV}}
 ENV CONTAINER_PROJ {{CONTAINER_PROJ}}
-ENV CONTAINER_ZIP_FILE {{CONTAINER_ZIP_FILE}}
-ENV CONTAINER_UNZIP_DIR {{CONTAINER_UNZIP_DIR}}
+ENV BUILD_ZIP_PATH {{BUILD_ZIP_PATH}}
+ENV BUILD_ZIP_FILE {{BUILD_ZIP_FILE}}
+ENV BUILD_UNZIP_DIR {{BUILD_UNZIP_DIR}}
 
-ADD  {{CONTAINER_PROJ}}/target/{{CONTAINER_ZIP_FILE}}.zip /data/deploy/
+ADD  {{BUILD_ZIP_PATH}}/target/{{BUILD_ZIP_FILE}}.zip /data/deploy/
 ADD  ./deploy_1_stop.sh /data/deploy/deploy_1_stop.sh
 ADD  ./deploy_2_replace.sh /data/deploy/deploy_2_replace.sh
 ADD  ./deploy_3_start.sh /data/deploy/deploy_3_start.sh
