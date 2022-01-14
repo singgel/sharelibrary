@@ -1,6 +1,6 @@
 package com.xueqiu.infra
 
-def build(container_env,container_proj,container_zip_file,container_unzip_dir,version) {
+def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir, version) {
     sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
     sh "echo '-----BEGIN CERTIFICATE-----\n" +
             "MIIDEzCCAfugAwIBAgIQMEl2iGP3MmlNmIXeN5W+7DANBgkqhkiG9w0BAQsFADAU\n" +
@@ -23,9 +23,9 @@ def build(container_env,container_proj,container_zip_file,container_unzip_dir,ve
             "-----END CERTIFICATE-----' >> /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
 
     log.i '开始Docker镜像构建'
-    def dockerFile   = libraryResource("docker/Dockerfile")
-    def stopShell    = libraryResource("shell/deploy_1_stop.sh")
-    def startShell   = libraryResource("shell/deploy_3_start.sh")
+    def dockerFile = libraryResource("docker/Dockerfile")
+    def stopShell = libraryResource("shell/deploy_1_stop.sh")
+    def startShell = libraryResource("shell/deploy_3_start.sh")
     def replaceShell = libraryResource("shell/deploy_2_replace.sh")
 
     writeFile file: './Dockerfile', text: dockerFile
@@ -35,8 +35,9 @@ def build(container_env,container_proj,container_zip_file,container_unzip_dir,ve
 
     sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
     sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
-    sh "sed -i 's/{{CONTAINER_ZIP_FILE}}/${container_zip_file}/g' ./Dockerfile"
-    sh "sed -i 's/{{CONTAINER_UNZIP_DIR}}/${container_unzip_dir}/g' ./Dockerfile"
+    sh "sed -i 's/{{BUILD_ZIP_PATH}}/${build_zip_path}/g' ./Dockerfile"
+    sh "sed -i 's/{{BUILD_ZIP_FILE}}/${build_zip_file}/g' ./Dockerfile"
+    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
     sh "cat ./Dockerfile"
 
     sh "chmod 777 ./deploy_1_stop.sh"
@@ -49,7 +50,7 @@ def build(container_env,container_proj,container_zip_file,container_unzip_dir,ve
 }
 
 
-def uploadToHarbor(container_proj,branchName,version) {
+def uploadToHarbor(container_proj, branchName, version) {
     echo '将构建结果上传到Harbor镜像仓库'
     sh "docker login xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com -u admin -p Xq-Harbor-Aliyun-K8s"
     sh "docker tag lib/${container_proj}:${branchName}-${version} xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${container_proj}:${branchName}-${version}"
@@ -59,7 +60,7 @@ def uploadToHarbor(container_proj,branchName,version) {
 }
 
 
-def deploy(container_proj,branch_name,version) {
+def deploy(container_proj, branch_name, version) {
     log.i '开始部署'
     def deploymentFile = libraryResource("k8s/deployment.yaml")
     writeFile file: './deployment.yaml', text: deploymentFile
