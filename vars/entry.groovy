@@ -22,10 +22,10 @@ def call() {
                             label 'xueqiu-ack-jnlp'
                         }
 
-                tools
-                        {
-                            maven 'maven-3.8.4'
-                        }
+//                tools
+//                        {
+//                            maven 'maven-3.8.4'
+//                        }
                 stages
                         {
                             stage('下载源码') {

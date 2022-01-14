@@ -1,6 +1,7 @@
 package com.xueqiu.infra
 
 def build(projectName,version) {
+    sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
     sh "echo '-----BEGIN CERTIFICATE-----\n" +
             "MIIDEzCCAfugAwIBAgIQMEl2iGP3MmlNmIXeN5W+7DANBgkqhkiG9w0BAQsFADAU\n" +
             "MRIwEAYDVQQDEwloYXJib3ItY2EwHhcNMjIwMTEzMDc1NjE4WhcNMjMwMTEzMDc1\n" +
