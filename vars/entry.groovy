@@ -8,12 +8,14 @@ def call() {
     def git = new Git()
     def docker = new Docker()
 
-    def branchName = "${env.git_branchName}"
+    def branch_name = "${env.git_branchName}"
     def credentialsId = "${env.git_credentialsId}"
     def repo = "${env.git_repo}"
-    def projectName = "${env.projectName}"
     def version = "${env.git_version}"
-    def environment = "${env.environment}"
+    def container_env = "${env.container_env}"
+    def container_proj = "${env.container_proj}"
+    def container_zip_file = "${env.container_zip_file}"
+    def container_unzip_dir = "${env.container_unzip_dir}"
 
     pipeline
             {
@@ -32,7 +34,7 @@ def call() {
                             stage('下载源码') {
                                 steps {
                                     script {
-                                        git.clone(branchName,repo,credentialsId)
+                                        git.clone(branch_name,repo,credentialsId)
                                     }
                                 }
                             }
@@ -46,21 +48,21 @@ def call() {
                             stage('生成镜像') {
                                 steps {
                                    script {
-                                       docker.build(projectName,version)
+                                       docker.build(container_env,container_proj,container_zip_file,container_unzip_dir,version)
                                    }
                                 }
                             }
                             stage('上传镜像') {
                                 steps {
                                     script {
-                                        docker.uploadToHarbor(projectName,version)
+                                        docker.uploadToHarbor(container_proj,branch_name,version)
                                     }
                                 }
                             }
                             stage('部署') {
                                 steps {
                                     script {
-                                        docker.deploy(projectName,version,environment)
+                                        docker.deploy(container_proj,branch_name,version)
                                     }
                                 }
                             }

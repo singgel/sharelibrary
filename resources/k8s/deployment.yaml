@@ -5,15 +5,15 @@ metadata:
     deployment.kubernetes.io/revision: '1'
   generation: 1
   labels:
-    app: {{PROJECT_NAME}}
-  name: {{PROJECT_NAME}}
+    app: {{CONTAINER_PROJ}}
+  name: {{CONTAINER_PROJ}}
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: {{PROJECT_NAME}}
+      app: {{CONTAINER_PROJ}}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -22,31 +22,23 @@ spec:
   template:
     metadata:
       labels:
-        app: {{PROJECT_NAME}}
+        app: {{CONTAINER_PROJ}}
     spec:
       containers:
         - env:
-            - name: CONTAINER_ENV
-              value: {{ENVIRONMENT}}
-            - name: CONTAINER_IP_ADDR
-              value: 172.12.1.1
             - name: CONTAINER_REGION
               value: ALI_BJ
-            - name: CONTAINER_NAME
-              value: ALI_BJ_TEST
             - name: CONTAINER_PROGRAM
               value: APP
-            - name: CONTAINER_PROJ
-              value: {{PROJECT_NAME}}
           image: >-
-            xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/{{PROJECT_NAME}}:{{GIT_VERSION}}
+            xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/{{CONTAINER_PROJ}}:{{GIT_BRANCH}}-{{GIT_VERSION}}
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
               exec:
                 command:
                   - /data/deploy/deploy_1_stop.sh
-          name: {{PROJECT_NAME}}
+          name: {{CONTAINER_PROJ}}
           ports:
             - containerPort: 10000
               name: grpc

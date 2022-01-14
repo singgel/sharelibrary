@@ -1,6 +1,6 @@
 package com.xueqiu.infra
 
-def build(projectName,version) {
+def build(container_env,container_proj,container_zip_file,container_unzip_dir,version) {
     sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
     sh "echo '-----BEGIN CERTIFICATE-----\n" +
             "MIIDEzCCAfugAwIBAgIQMEl2iGP3MmlNmIXeN5W+7DANBgkqhkiG9w0BAQsFADAU\n" +
@@ -33,39 +33,39 @@ def build(projectName,version) {
     writeFile file: './deploy_3_start.sh', text: startShell
     writeFile file: './deploy_2_replace.sh', text: replaceShell
 
-    sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./Dockerfile"
+    sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
+    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
+    sh "sed -i 's/{{CONTAINER_ZIP_FILE}}/${container_zip_file}/g' ./Dockerfile"
+    sh "sed -i 's/{{CONTAINER_UNZIP_DIR}}/${container_unzip_dir}/g' ./Dockerfile"
     sh "cat ./Dockerfile"
-
-    sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./deploy_2_replace.sh"
-    sh "cat ./deploy_2_replace.sh"
 
     sh "chmod 777 ./deploy_1_stop.sh"
     sh "chmod 777 ./deploy_3_start.sh"
     sh "chmod 777 ./deploy_2_replace.sh"
 
-    sh "docker build -t lib/${projectName}:${version} -f ./Dockerfile ."
+    sh "docker build -t lib/${container_proj}:${version} -f ./Dockerfile ."
     sh "docker images"
     log.i '构建完成'
 }
 
 
-def uploadToHarbor(projectName,version) {
+def uploadToHarbor(container_proj,branchName,version) {
     echo '将构建结果上传到Harbor镜像仓库'
     sh "docker login xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com -u admin -p Xq-Harbor-Aliyun-K8s"
-    sh "docker tag lib/${projectName}:${version} xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${projectName}:${version}"
-    sh "docker push xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${projectName}:${version}"
+    sh "docker tag lib/${container_proj}:${branchName}-${version} xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${container_proj}:${branchName}-${version}"
+    sh "docker push xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${container_proj}:${branchName}-${version}"
     sh "docker logout xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
     echo '传送完毕'
 }
 
 
-def deploy(projectName,version,environment) {
+def deploy(container_proj,branch_name,version) {
     log.i '开始部署'
     def deploymentFile = libraryResource("k8s/deployment.yaml")
     writeFile file: './deployment.yaml', text: deploymentFile
 
-    sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./deployment.yaml"
-    sh "sed -i 's/{{ENVIRONMENT}}/${environment}/g' ./deployment.yaml"
+    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./deployment.yaml"
+    sh "sed -i 's/{{GIT_BRANCH}}/${branch_name}/g' ./deployment.yaml"
     sh "sed -i 's/{{GIT_VERSION}}/${version}/g' ./deployment.yaml"
     sh "cat ./deployment.yaml"
 
