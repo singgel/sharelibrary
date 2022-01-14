@@ -12,9 +12,9 @@ def build(projectName,version,environment) {
 
     writeFile file: './deployment.yaml', text: deploymentFile
     writeFile file: './Dockerfile', text: dockerFile
-    writeFile file: './deploy_1_stop', text: stopShell
-    writeFile file: './deploy_3_start', text: startShell
-    writeFile file: './deploy_2_replace', text: replaceShell
+    writeFile file: './deploy_1_stop.sh', text: stopShell
+    writeFile file: './deploy_3_start.sh', text: startShell
+    writeFile file: './deploy_2_replace.sh', text: replaceShell
 
     sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./deployment.yaml"
     sh "sed -i 's/{{ENVIRONMENT}}/${environment}/g' ./deployment.yaml"
