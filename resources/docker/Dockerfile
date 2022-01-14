@@ -1,9 +1,8 @@
 FROM xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/library/xq-base-java8:v2020
-MAINTAINER hekuangsheng@xueqiu.com
+MAINTAINER sre@xueqiu.com
 
 ENV CONTAINER_ENV {{CONTAINER_ENV}}
 ENV CONTAINER_PROJ {{CONTAINER_PROJ}}
-ENV BUILD_ZIP_PATH {{BUILD_ZIP_PATH}}
 ENV BUILD_ZIP_FILE {{BUILD_ZIP_FILE}}
 ENV BUILD_UNZIP_DIR {{BUILD_UNZIP_DIR}}
 
