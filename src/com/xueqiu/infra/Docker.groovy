@@ -1,3 +1,4 @@
+package com.xueqiu.infra
 
 def build(projectName,version,environment) {
 
