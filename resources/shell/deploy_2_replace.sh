@@ -9,7 +9,7 @@ UNZIP_DIR=$BUILD_UNZIP_DIR
 # init new version
 cp -r /data/deploy /data/tools/deploy
 rm -rf /data/tools/deploy/$PRJ
-unzip -d /data/tools/deploy /data/tools/deploy/${ZIP_FILE}.zip
+unzip -d /data/tools/deploy /data/tools/deploy/${ZIP_FILE}
 [ $UNZIP_DIR != $PRJ ] && mv /data/tools/deploy/$UNZIP_DIR /data/tools/deploy/$PRJ
 
 # calculate diff
