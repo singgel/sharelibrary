@@ -1,14 +1,18 @@
-import com.xueqiu.infra.cd.Git
+import com.xueqiu.infra.Git
 
 def call() {
 
     log.i 'input params'
 
-   def git = new Git()
+    def git = new Git()
+    def docker = new Docker()
 
     def branchName = "${env.branchName}"
     def credentialsId = "${env.credentialsId}"
     def repo = "${env.repo}"
+    def projectName = "${env.projectName}"
+    def version = "${env.version}"
+    def environment = "${env.environment}"
 
     pipeline
             {
@@ -30,10 +34,14 @@ def call() {
                                         git.clone(branchName,repo,credentialsId)
                                         git.build()
                                     }
-                                    script {
-                                        build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                                    }
-                                    sh 'echo${build_tag}'
+                                }
+                            }
+                            stage('Docker Build') {
+                                steps {
+                                   script {
+                                       docker.build(projectName,version,environment)
+                                       docker.uploadToHarbor(projectName,version)
+                                   }
                                 }
                             }
                         }

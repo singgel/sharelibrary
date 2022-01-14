@@ -1,4 +1,4 @@
-package com.xueqiu.infra.cd
+package com.xueqiu.infra
 
 def clone(branch,repo,credentialsId) {
     try {
@@ -14,8 +14,8 @@ def clone(branch,repo,credentialsId) {
     }
 }
 
-def build(branch) {
-    log.i 'build 分支:' + branch
+def build() {
+    log.i 'build'
     sh("pwd")
     sh 'mvn clean package -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -gs /home/jenkins/settings/settings.xml'
     log.i '打包完成'
