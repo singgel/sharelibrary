@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # prepare variable
-PRJ="xueqiu-push-user-server"
-UNZIP_DIR="xueqiu-push-user-server"
+PRJ="{{PROJECT_NAME}}"
+UNZIP_DIR="{{PROJECT_NAME}}"
 
 mv /data/deploy/${PRJ}-bin.zip /data/deploy/${PRJ}.zip
 

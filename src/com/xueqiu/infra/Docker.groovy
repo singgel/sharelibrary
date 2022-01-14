@@ -18,11 +18,20 @@ def build(projectName,version,environment) {
 
     sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./deployment.yaml"
     sh "sed -i 's/{{ENVIRONMENT}}/${environment}/g' ./deployment.yaml"
+    sh "sed -i 's/{{GIT_VERSION}}/${version}/g' ./deployment.yaml"
     sh "cat ./deployment.yaml"
 
 
     sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./Dockerfile"
     sh "cat ./Dockerfile"
+
+
+    sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./deploy_2_replace.sh"
+    sh "cat ./deploy_2_replace.sh"
+
+    sh "chmod 777 ./deploy_1_stop.sh"
+    sh "chmod 777 ./deploy_3_start.sh"
+    sh "chmod 777 ./deploy_2_replace.sh"
 
     sh "docker login xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com -u admin -p Xq-Harbor-Aliyun-K8s"
     sh "docker build -t lib/${projectName}:${version} -f ./Dockerfile ."

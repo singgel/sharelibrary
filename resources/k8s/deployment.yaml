@@ -39,7 +39,7 @@ spec:
             - name: CONTAINER_PROJ
               value: {{PROJECT_NAME}}
           image: >-
-            xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/xueqiu-push-user:latest
+            xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/{{PROJECT_NAME}}:{{GIT_VERSION}}
           imagePullPolicy: IfNotPresent
           lifecycle:
             postStart:
