@@ -42,15 +42,11 @@ spec:
             xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/{{PROJECT_NAME}}:{{GIT_VERSION}}
           imagePullPolicy: IfNotPresent
           lifecycle:
-            postStart:
-              exec:
-                command:
-                  - /data/deploy/deploy_3_start.sh
             preStop:
               exec:
                 command:
                   - /data/deploy/deploy_1_stop.sh
-          name: xueqiu-push-user
+          name: {{PROJECT_NAME}}
           ports:
             - containerPort: 10000
               name: grpc
