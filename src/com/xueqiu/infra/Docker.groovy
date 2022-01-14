@@ -16,12 +16,12 @@ def build(projectName,version,environment) {
     writeFile file: './deploy_3_start', text: startShell
     writeFile file: './deploy_2_replace', text: replaceShell
 
-    sh "sed -i '#{{PROJECT_NAME}}#${projectName}#g' ./deployment.yaml"
-    sh "sed -i '#{{ENVIRONMENT}}#${environment}#g' ./deployment.yaml"
+    sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./deployment.yaml"
+    sh "sed -i 's/{{ENVIRONMENT}}/${environment}/g' ./deployment.yaml"
     sh "cat ./deployment.yaml"
 
 
-    sh "sed -i '#{{PROJECT_NAME}}#${projectName}#g' ./Dockerfile"
+    sh "sed -i 's/{{PROJECT_NAME}}/${projectName}/g' ./Dockerfile"
     sh "cat ./Dockerfile"
 
     sh "docker login xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com -u admin -p Xq-Harbor-Aliyun-K8s"
