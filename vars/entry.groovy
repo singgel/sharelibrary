@@ -1,4 +1,5 @@
 import com.xueqiu.infra.Git
+import com.xueqiu.infra.Docker
 
 def call() {
 
