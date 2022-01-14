@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="57f7f3f2-0774-47af-acc9-f80af2caaf71" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+            <state relative-caret-position="581">
+              <caret line="49" column="44" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -37,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
+            <state relative-caret-position="465">
+              <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -53,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/docker/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="8" column="36" lean-forward="true" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+            <state relative-caret-position="90">
+              <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -105,10 +104,10 @@
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/cd/Git.groovy" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/docker.groovy" />
         <option value="$PROJECT_DIR$/resources/k8s/deployment.yaml" />
-        <option value="$PROJECT_DIR$/resources/docker/Dockerfile" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy" />
-        <option value="$PROJECT_DIR$/vars/entry.groovy" />
+        <option value="$PROJECT_DIR$/resources/docker/Dockerfile" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" />
+        <option value="$PROJECT_DIR$/vars/entry.groovy" />
       </list>
     </option>
   </component>
@@ -119,7 +118,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1674" />
+    <option name="x" value="1451" />
     <option name="y" value="-574" />
     <option name="width" value="2560" />
     <option name="height" value="1415" />
@@ -239,15 +238,16 @@
       <option name="presentableId" value="Default" />
       <updated>1642064940253</updated>
       <workItem from="1642064942751" duration="1171000" />
-      <workItem from="1642066142750" duration="15271000" />
+      <workItem from="1642066142750" duration="16113000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16442000" />
+    <option name="totallyTimeSpent" value="17284000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1674" y="-574" width="2560" height="1415" extended-state="0" />
+    <frame x="1451" y="-574" width="2560" height="1415" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12409928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -325,13 +325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/docker/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="8" column="36" lean-forward="true" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/shell/deliver.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-142" />
@@ -351,10 +344,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/docker/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        <state relative-caret-position="581">
+          <caret line="49" column="44" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
@@ -363,8 +363,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
+        <state relative-caret-position="465">
+          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
         </state>
       </provider>
     </entry>

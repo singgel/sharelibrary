@@ -28,16 +28,21 @@ def call() {
                         }
                 stages
                         {
-                            stage('Checkout') {
+                            stage('下载源码') {
                                 steps {
-                                    echo '从GitHub下载工程的源码'
                                     script {
                                         git.clone(branchName,repo,credentialsId)
+                                    }
+                                }
+                            }
+                            stage('打包') {
+                                steps {
+                                    script {
                                         git.build()
                                     }
                                 }
                             }
-                            stage('Docker Build') {
+                            stage('生成镜像') {
                                 steps {
                                    script {
                                        docker.build(projectName,version,environment)
@@ -45,7 +50,7 @@ def call() {
                                    }
                                 }
                             }
-                            stage('Docker Upload') {
+                            stage('上传镜像') {
                                 steps {
                                     script {
                                         docker.uploadToHarbor(projectName,version)

@@ -17,7 +17,7 @@ def build(projectName,version,environment) {
     writeFile file: './deploy_2_replace', text: replaceShell
 
     sh "sed -i '#{{PROJECT_NAME}}#${projectName}#g' ./deployment.yaml"
-    sh "sed -i '#{{ENVIRONMENT}}#${environment}#g' ./deployment."
+    sh "sed -i '#{{ENVIRONMENT}}#${environment}#g' ./deployment.yaml"
     sh "cat ./deployment.yaml"
 
 
