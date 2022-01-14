@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57f7f3f2-0774-47af-acc9-f80af2caaf71" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/resources/docker/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/shell/deliver.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/shell/deploy_1_stop.sh" beforeDir="false" afterPath="$PROJECT_DIR$/resources/shell/deploy_1_stop.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/shell/deploy_2_replace.sh" beforeDir="false" afterPath="$PROJECT_DIR$/resources/shell/deploy_2_replace.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/shell/deploy_3_start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/resources/shell/deploy_3_start.sh" afterDir="false" />
-    </list>
+    <list default="true" id="57f7f3f2-0774-47af-acc9-f80af2caaf71" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
