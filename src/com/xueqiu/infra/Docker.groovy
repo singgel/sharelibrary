@@ -4,8 +4,9 @@ def build(projectName,version,environment) {
 
     log.i '开始Docker镜像构建'
     //执行部署脚本
+    def deploymentFile = libraryResource("k8s/deployment.yaml")
     sh "ls -l ${projectName}/target"
-    sh "echo `sed '#{{PROJECT_NAME}}#${projectName}#g' k8s/deployment.yaml` >> ./deployment.yaml"
+    sh "echo `sed '#{{PROJECT_NAME}}#${projectName}#g' ${deploymentFile}` >> ./deployment.yaml"
     sh "cat ./deployment.yaml"
     sh "sed -i '#{{ENVIRONMENT}}#${environment}#g' ./deployment.yaml"
     sh "cat ./deployment.yaml"
