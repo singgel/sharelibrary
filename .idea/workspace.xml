@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57f7f3f2-0774-47af-acc9-f80af2caaf71" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/docker/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/k8s/deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/shell/deliver.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/shell/deploy_1_stop.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/shell/deploy_2_replace.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/shell/deploy_3_start.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xueqiu/infra/cd/Git.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vars/entry.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/vars/entry.groovy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,11 +13,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="710">
-              <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+            <state relative-caret-position="30">
+              <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,18 +34,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="6" column="94" selection-start-line="6" selection-start-column="94" selection-end-line="6" selection-end-column="94" />
+            <state relative-caret-position="270">
+              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/shell/deliver.sh">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-142" />
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -65,8 +62,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/k8s/deployment.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+            <state relative-caret-position="365">
+              <caret line="27" column="14" lean-forward="true" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -109,9 +106,9 @@
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/docker.groovy" />
         <option value="$PROJECT_DIR$/resources/k8s/deployment.yaml" />
-        <option value="$PROJECT_DIR$/vars/entry.groovy" />
         <option value="$PROJECT_DIR$/resources/docker/Dockerfile" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" />
+        <option value="$PROJECT_DIR$/vars/entry.groovy" />
       </list>
     </option>
   </component>
@@ -122,8 +119,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1617" />
-    <option name="y" value="-574" />
+    <option name="x" value="1633" />
+    <option name="y" value="568" />
     <option name="width" value="2560" />
     <option name="height" value="1415" />
   </component>
@@ -242,17 +239,17 @@
       <option name="presentableId" value="Default" />
       <updated>1642064940253</updated>
       <workItem from="1642064942751" duration="1171000" />
-      <workItem from="1642066142750" duration="11881000" />
+      <workItem from="1642066142750" duration="12232000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13052000" />
+    <option name="totallyTimeSpent" value="13403000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1588" y="21" width="2560" height="1415" extended-state="0" />
+    <frame x="1617" y="-574" width="2560" height="1415" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12409928" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12409928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -266,7 +263,7 @@
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="GraphQL" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32994527" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32994527" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="Sequence" order="13" />
@@ -321,16 +318,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/shell/deliver.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Jenkinsfile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -338,10 +325,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
+    <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="710">
-          <caret line="36" column="33" lean-forward="true" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+        <state>
+          <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -352,17 +339,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/k8s/deployment.yaml">
+    <entry file="file://$PROJECT_DIR$/resources/shell/deliver.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
+        <state relative-caret-position="-142" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="94" selection-start-line="6" selection-start-column="94" selection-end-line="6" selection-end-column="94" />
+        <state relative-caret-position="270">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/k8s/deployment.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="27" column="14" lean-forward="true" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars/entry.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
