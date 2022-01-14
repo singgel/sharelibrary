@@ -8,11 +8,11 @@ def call() {
     def git = new Git()
     def docker = new Docker()
 
-    def branchName = "${env.branchName}"
-    def credentialsId = "${env.credentialsId}"
-    def repo = "${env.repo}"
+    def branchName = "${env.git_branchName}"
+    def credentialsId = "${env.git_credentialsId}"
+    def repo = "${env.git_repo}"
     def projectName = "${env.projectName}"
-    def version = "${env.version}"
+    def version = "${env.git_version}"
     def environment = "${env.environment}"
 
     pipeline

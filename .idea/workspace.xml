@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="57f7f3f2-0774-47af-acc9-f80af2caaf71" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-column="24" />
+            <state relative-caret-position="540">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -37,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="590">
+              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -103,12 +102,12 @@
         <option value="$PROJECT_DIR$/java.Jekinsfile" />
         <option value="$PROJECT_DIR$/Jenkinsfile" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/cd/Git.groovy" />
-        <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/docker.groovy" />
         <option value="$PROJECT_DIR$/resources/k8s/deployment.yaml" />
         <option value="$PROJECT_DIR$/resources/docker/Dockerfile" />
         <option value="$PROJECT_DIR$/vars/entry.groovy" />
         <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy" />
+        <option value="$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy" />
       </list>
     </option>
   </component>
@@ -119,8 +118,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1772" />
-    <option name="y" value="-574" />
+    <option name="x" value="1634" />
+    <option name="y" value="-510" />
     <option name="width" value="2560" />
     <option name="height" value="1415" />
   </component>
@@ -239,15 +238,16 @@
       <option name="presentableId" value="Default" />
       <updated>1642064940253</updated>
       <workItem from="1642064942751" duration="1171000" />
-      <workItem from="1642066142750" duration="12517000" />
+      <workItem from="1642066142750" duration="13434000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13688000" />
+    <option name="totallyTimeSpent" value="14605000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1772" y="-574" width="2560" height="1415" extended-state="0" />
+    <frame x="1634" y="-510" width="2560" height="1415" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12409928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -356,15 +356,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Git.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="24" />
+        <state relative-caret-position="540">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xueqiu/infra/Docker.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="590">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
         </state>
       </provider>
     </entry>
