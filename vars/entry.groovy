@@ -45,7 +45,7 @@ def call() {
                             stage('生成镜像') {
                                 steps {
                                    script {
-                                       docker.build(projectName,version,environment)
+                                       docker.build(projectName,version)
                                        docker.uploadToHarbor(projectName,version)
                                    }
                                 }
@@ -54,6 +54,13 @@ def call() {
                                 steps {
                                     script {
                                         docker.uploadToHarbor(projectName,version)
+                                    }
+                                }
+                            }
+                            stage('部署') {
+                                steps {
+                                    script {
+                                        docker.deploy(projectName,version,environment)
                                     }
                                 }
                             }
