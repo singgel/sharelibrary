@@ -44,6 +44,8 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
 
     sh("ls -l")
 
+    sh("cat /home/jenkins/agent/workspace/xueqiu-push-user-new/Dockerfile")
+
     File file = new File("$path/Dockerfile")
     String text = file.text
     text = text.replaceAll("\\{\\{CONTAINER_EN}}","${container_env}")
