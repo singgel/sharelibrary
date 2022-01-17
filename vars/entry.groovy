@@ -17,6 +17,10 @@ def call() {
     def build_zip_file = "${env.build_zip_file}"
     def build_unzip_dir = "${env.build_unzip_dir}"
 
+    node {
+        settings.config()
+    }
+
     pipeline
             {
                 agent
