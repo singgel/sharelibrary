@@ -3,23 +3,12 @@ import com.xueqiu.infra.Docker
 
 def call() {
 
-    log.i 'input params'
-
-    def git = new Git()
-    def docker = new Docker()
-
-    def branch_name = "${env.git_branchName}"
-    def credentialsId = "${env.git_credentialsId}"
-    def repo = "${env.git_repo}"
-    def container_env = "${env.container_env}"
-    def container_proj = "${env.container_proj}"
-    def build_zip_path = "${env.build_zip_path}"
-    def build_zip_file = "${env.build_zip_file}"
-    def build_unzip_dir = "${env.build_unzip_dir}"
-
     node {
         settings.config()
     }
+
+    def git    = new Git()
+    def docker = new Docker()
 
     pipeline
             {
@@ -38,7 +27,7 @@ def call() {
                             stage('下载源码') {
                                 steps {
                                     script {
-                                        git.clone(branch_name, repo, credentialsId)
+                                        git.clone()
                                     }
                                 }
                             }
@@ -52,21 +41,21 @@ def call() {
                             stage('生成镜像') {
                                 steps {
                                     script {
-                                        docker.build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir)
+                                        docker.build()
                                     }
                                 }
                             }
                             stage('上传镜像') {
                                 steps {
                                     script {
-                                        docker.uploadToHarbor(container_proj, container_env)
+                                        docker.uploadToHarbor()
                                     }
                                 }
                             }
                             stage('部署') {
                                 steps {
                                     script {
-                                        docker.deploy(container_proj, container_env)
+                                        docker.deploy()
                                     }
                                 }
                             }

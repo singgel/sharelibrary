@@ -1,7 +1,13 @@
 package com.xueqiu.infra
 
-def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir) {
+def build() {
     log.i '开始Docker镜像构建'
+
+    def container_env   = Config.settings.container_env
+    def container_proj  = Config.settings.container_proj
+    def build_zip_path  = Config.settings.build_zip_path
+    def build_zip_file  = Config.settings.build_zip_file
+    def build_unzip_dir = Config.settings.build_unzip_dir
 
     def harboarDomain = Config.settings.harbor_domain
     def crt = libraryResource("ca.crt")
@@ -30,30 +36,36 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     sh "chmod 777 ./deploy_3_start.sh"
     sh "chmod 777 ./deploy_2_replace.sh"
 
-    sh "docker build -t lib/${container_proj}:${container_env}-${version} -f ./Dockerfile ."
+    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${container_env}-${version} -f ./Dockerfile ."
     sh "docker images"
     log.i '构建完成'
 }
 
 
-def uploadToHarbor(container_proj, container_env) {
+def uploadToHarbor() {
     log.i '将构建结果上传到Harbor镜像仓库'
-    def harboarDomain = Config.settings.harbor_domain
-    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+
+    def container_proj = Config.settings.container_proj
+    def container_env  = Config.settings.container_env
+    def harboarDomain  = Config.settings.harbor_domain
+    def version        = Config.settings.git_version
+
     sh "docker login $harboarDomain -u admin -p Xq-Harbor-Aliyun-K8s"
-    sh "docker tag lib/${container_proj}:${container_env}-${version} $harboarDomain/lib/${container_proj}:${container_env}-${version}"
-    sh "docker push $harboarDomain/lib/${container_proj}:${container_env}-${version}"
+    sh "docker tag ${Config.settings.repository_group}/${container_proj}:${container_env}-${version} $harboarDomain/${Config.settings.repository_group}/${container_proj}:${container_env}-${version}"
+    sh "docker push $harboarDomain/${Config.settings.repository_group}/${container_proj}:${container_env}-${version}"
     sh "docker logout $harboarDomain"
-    log.i '传送完毕,开始删除镜像'
-    sh "docker images -q | xargs docker rmi -f"
+    log.i '传送完毕,开始删除本地镜像'
+    sh "docker rmi -f ${Config.settings.repository_group}/${container_proj}:${container_env}-${version}"
     log.i "删除完成"
 }
 
-
-def deploy(container_proj, container_env) {
+def deploy() {
     log.i '开始部署'
 
-    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+    def container_proj = Config.settings.container_proj
+    def container_env  = Config.settings.container_env
+    def version        = Config.settings.git_version
+
     String deploymentFile = libraryResource("k8s/deployment.yaml")
 
     deploymentFile = deploymentFile.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
