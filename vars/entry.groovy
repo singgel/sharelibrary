@@ -26,9 +26,9 @@ def call() {
 
                 tools
                         {
-                            maven 'maven-3.8.4'
+                            jdk 'jdk1.8.0_221'
+                            maven 'maven-3.6.1'
                         }
-
                 stages
                         {
                             stage('下载源码') {
