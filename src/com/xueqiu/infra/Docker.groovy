@@ -4,8 +4,8 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
 
-    def crt = readFile "ca.crt"
-    sh "echo crt"
+    def crt = readFile libraryResource("ca.crt")
+    sh "echo $crt"
 
     sh "echo '$crt' >> /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
 
