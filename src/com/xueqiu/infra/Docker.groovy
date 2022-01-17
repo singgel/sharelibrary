@@ -2,7 +2,7 @@ package com.xueqiu.infra
 
 def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir) {
 
-    def crt = readFile libraryResource("ca.crt")
+    def crt = libraryResource("ca.crt")
     log.i 'crt:' + $crt
 
     def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
