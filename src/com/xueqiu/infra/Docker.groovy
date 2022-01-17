@@ -34,10 +34,8 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     writeFile file: './deploy_3_start.sh', text: startShell
     writeFile file: './deploy_2_replace.sh', text: replaceShell
 
-    sh("echo $build_zip_path > zip_path.txt")
-    def zipPath = sh(returnStdout: true, script: "sed 's/\\//\\\\\\//g' zip_path.txt").trim()
-
-    sh("echo $zipPath")
+    sh "echo $build_zip_path > build_zip_path.txt"
+    def zipPath = sh(returnStdout: true, script: "sed 's/\\//\\\\\\//g' build_zip_path.txt").trim()
 
     sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
     sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
@@ -45,7 +43,6 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     sh "sed -i 's/{{BUILD_ZIP_FILE}}/${build_zip_file}/g' ./Dockerfile"
     sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
     sh "cat ./Dockerfile"
-
 
 
     sh "chmod 777 ./deploy_1_stop.sh"
