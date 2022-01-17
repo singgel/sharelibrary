@@ -3,11 +3,11 @@ package com.xueqiu.infra
 def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir) {
 
     def crt = libraryResource("ca.crt")
-    log.i 'crt:' + $crt
+    log.i 'crt:' + "$crt"
 
     def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
-    sh "echo $crt > /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
+    sh "echo '$crt' > /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
 
     log.i '开始Docker镜像构建'
     def dockerFile = libraryResource("docker/Dockerfile")
