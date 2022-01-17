@@ -1,47 +1,34 @@
 package com.xueqiu.infra
 
-def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir) {
-    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
-    sh "echo '-----BEGIN CERTIFICATE-----\n" +
-            "MIIDEzCCAfugAwIBAgIQMEl2iGP3MmlNmIXeN5W+7DANBgkqhkiG9w0BAQsFADAU\n" +
-            "MRIwEAYDVQQDEwloYXJib3ItY2EwHhcNMjIwMTEzMDc1NjE4WhcNMjMwMTEzMDc1\n" +
-            "NjE4WjAUMRIwEAYDVQQDEwloYXJib3ItY2EwggEiMA0GCSqGSIb3DQEBAQUAA4IB\n" +
-            "DwAwggEKAoIBAQDDNfHPQzKFm5ZtGf+svrZJhgve5CoRYQ/Qa1Q7YJC7Pn0a+UGf\n" +
-            "pH5Aq2wK5bvTXUp+X4X/StEgpMuvOhuhaJKsKDBvDydbIZf3VmH7IrD+KUk+XMtO\n" +
-            "bKeMGS9NHDPEY2oLC2omSATPXIscsJmFrBY4G3PvFB/oCzKKiHIPCWnHV9ygs6FQ\n" +
-            "Hwjc3Kh4c1k0zjYAoiNvrhEsIrr3Ev359CVTX2mG+OC8/Q5zmMx3onyvMushsKWH\n" +
-            "uuMxuoqIZ5hMWFFehp/MjbcQz2BBgbRnAAjXAT0sAThiFZjTgV5Llrd2iHLfZK5e\n" +
-            "skG145/BRAun/1f/CxS2z0gQuaOXOIUuowlVAgMBAAGjYTBfMA4GA1UdDwEB/wQE\n" +
-            "AwICpDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDwYDVR0TAQH/BAUw\n" +
-            "AwEB/zAdBgNVHQ4EFgQUdVV3mENmafG8oe3ryRon4rvKavYwDQYJKoZIhvcNAQEL\n" +
-            "BQADggEBACAmz36fuGOZOPt9Aixzx5TOwnWuntWDGaQJu0AzLE3RKQ8T5XsnxDen\n" +
-            "7SzUmzSz5ikx61cKgIBFg9/UCOKibXVI4GtUgstwgPec7XZLgg225yySPfdNxaVQ\n" +
-            "fGOjTq4tZXbuSm95Izty87vPkYWn+R7LdAt0hiXqAyw/jKmXR3qLSkmobZdOOT6j\n" +
-            "a7l79WxRHKIa0jUh5QB34ZzJ1B8QCc/rkW/Sp/9RakhgK4AFmK1P1Izr1DoIGKmb\n" +
-            "mIFHlUwGeAOQqMfsSUODqxFvNBg6cL35zbdXkZ9j2aEcFD3VGUkd8OX0G+cLdgpv\n" +
-            "X1LcPyW1wsUELAYDUM/JqFq1fCbVGNg=\n" +
-            "-----END CERTIFICATE-----' >> /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
-
+def build() {
     log.i '开始Docker镜像构建'
-    def dockerFile = libraryResource("docker/Dockerfile")
+
+    def container_env   = Config.settings.container_env
+    def container_proj  = Config.settings.container_proj
+    def build_zip_path  = Config.settings.build_zip_path
+    def build_zip_file  = Config.settings.build_zip_file
+    def build_unzip_dir = Config.settings.build_unzip_dir
+
+    def harboarDomain = Config.settings.harbor_domain
+    def crt = libraryResource("ca.crt")
+    sh "mkdir -p /etc/docker/certs.d/$harboarDomain"
+    sh "echo '$crt' > /etc/docker/certs.d/$harboarDomain/ca.crt"
+
+    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     def stopShell = libraryResource("shell/deploy_1_stop.sh")
     def startShell = libraryResource("shell/deploy_3_start.sh")
     def replaceShell = libraryResource("shell/deploy_2_replace.sh")
-
-    writeFile file: "./Dockerfile", text: dockerFile
     writeFile file: './deploy_1_stop.sh', text: stopShell
     writeFile file: './deploy_3_start.sh', text: startShell
     writeFile file: './deploy_2_replace.sh', text: replaceShell
 
-    sh "echo $build_zip_path > build_zip_path.txt"
-    def zipPath = sh(returnStdout: true, script: "sed 's/\\//\\\\\\//g' build_zip_path.txt").trim()
-
-    sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
-    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
-    sh "sed -i 's/{{BUILD_ZIP_PATH}}/${zipPath}/g' ./Dockerfile"
-    sh "sed -i 's/{{BUILD_ZIP_FILE}}/${build_zip_file}/g' ./Dockerfile"
-    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
+    String dockerFile = libraryResource("docker/Dockerfile")
+    dockerFile = dockerFile.replaceAll("\\{\\{CONTAINER_ENV}}","${container_env}")
+    dockerFile = dockerFile.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
+    dockerFile = dockerFile.replaceAll("\\{\\{BUILD_ZIP_PATH}}","${build_zip_path}")
+    dockerFile = dockerFile.replaceAll("\\{\\{BUILD_ZIP_FILE}}","${build_zip_file}")
+    dockerFile = dockerFile.replaceAll("\\{\\{BUILD_UNZIP_DIR}}","${build_unzip_dir}")
+    writeFile file: "./Dockerfile", text: dockerFile
     sh "cat ./Dockerfile"
 
 
@@ -49,32 +36,47 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     sh "chmod 777 ./deploy_3_start.sh"
     sh "chmod 777 ./deploy_2_replace.sh"
 
-    sh "docker build -t lib/${container_proj}:${container_env}-${version} -f ./Dockerfile ."
+    Config.settings.image_version = "${container_env}-${version}"
+    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version} -f ./Dockerfile ."
     sh "docker images"
     log.i '构建完成'
 }
 
 
-def uploadToHarbor(container_proj, container_env) {
-    echo '将构建结果上传到Harbor镜像仓库'
-    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    sh "docker login xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com -u admin -p Xq-Harbor-Aliyun-K8s"
-    sh "docker tag lib/${container_proj}:${container_env}-${version} xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${container_proj}:${container_env}-${version}"
-    sh "docker push xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/${container_proj}:${container_env}-${version}"
-    sh "docker logout xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
-    echo '传送完毕'
+def uploadToHarbor() {
+    log.i '将构建结果上传到Harbor镜像仓库'
+
+    def container_proj = Config.settings.container_proj
+    def container_env  = Config.settings.container_env
+    def harboarDomain  = Config.settings.harbor_domain
+
+    def oldImageName = "${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
+    def newImageName = "$harboarDomain/${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
+
+    sh "docker login $harboarDomain -u admin -p Xq-Harbor-Aliyun-K8s"
+    sh "docker tag $oldImageName $newImageName"
+    sh "docker push $newImageName"
+    sh "docker logout $harboarDomain"
+    log.i '传送完毕,开始删除本地镜像'
+    sh "docker rmi -f $oldImageName"
+    sh "docker rmi -f $newImageName"
+    log.i "删除完成"
 }
 
-
-def deploy(container_proj, container_env) {
+def deploy() {
     log.i '开始部署'
-    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    def deploymentFile = libraryResource("k8s/deployment.yaml")
+
+    def container_proj = Config.settings.container_proj
+    def container_env  = Config.settings.container_env
+    def version        = Config.settings.git_version
+
+    String deploymentFile = libraryResource("k8s/deployment.yaml")
+
+    deploymentFile = deploymentFile.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{CONTAINER_ENV}}","${container_env}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{GIT_VERSION}}","${version}")
     writeFile file: './deployment.yaml', text: deploymentFile
 
-    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./deployment.yaml"
-    sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./deployment.yaml"
-    sh "sed -i 's/{{GIT_VERSION}}/${version}/g' ./deployment.yaml"
     sh "cat ./deployment.yaml"
 
     sh "kubectl apply -f ./deployment.yaml"
