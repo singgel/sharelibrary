@@ -29,26 +29,19 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     def startShell = libraryResource("shell/deploy_3_start.sh")
     def replaceShell = libraryResource("shell/deploy_2_replace.sh")
 
-    writeFile file: './Dockerfile', text: dockerFile
+    writeFile file: "./Dockerfile", text: dockerFile
     writeFile file: './deploy_1_stop.sh', text: stopShell
     writeFile file: './deploy_3_start.sh', text: startShell
     writeFile file: './deploy_2_replace.sh', text: replaceShell
 
-//    sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
-//    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
-//    sh "sed -i 's/{{BUILD_ZIP_PATH}}/${build_zip_path}/g' ./Dockerfile"
-//    sh "sed -i 's/{{BUILD_ZIP_FILE}}/${build_zip_file}/g' ./Dockerfile"
-//    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
-//    sh "cat ./Dockerfile"
+    sh "echo $build_zip_path > build_zip_path.txt"
+    def zipPath = sh(returnStdout: true, script: "sed 's/\\//\\\\\\//g' build_zip_path.txt").trim()
 
-    File file = new File("./Dockerfile")
-    String text = file.text
-    text = text.replaceAll("\\{\\{CONTAINER_EN}}","${container_env}")
-    text = text.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
-    text = text.replaceAll("\\{\\{BUILD_ZIP_PATH}}","${build_zip_path}")
-    text = text.replaceAll("\\{\\{BUILD_ZIP_FILE}}","${build_zip_file}")
-    text = text.replaceAll("\\{\\{BUILD_UNZIP_DIR}}","${build_unzip_dir}")
-    sh "echo $text > Dockerfile"
+    sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
+    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
+    sh "sed -i 's/{{BUILD_ZIP_PATH}}/${zipPath}/g' ./Dockerfile"
+    sh "sed -i 's/{{BUILD_ZIP_FILE}}/${build_zip_file}/g' ./Dockerfile"
+    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
     sh "cat ./Dockerfile"
 
 
