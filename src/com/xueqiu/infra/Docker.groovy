@@ -7,7 +7,6 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     def crt = libraryResource("ca.crt")
     sh "mkdir -p /etc/docker/certs.d/$harboarDomain"
     sh "echo '$crt' > /etc/docker/certs.d/$harboarDomain/ca.crt"
-    sh "cat /etc/docker/certs.d/$harboarDomain/ca.crt"
 
     def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     def stopShell = libraryResource("shell/deploy_1_stop.sh")
@@ -33,8 +32,6 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
 
     sh "docker build -t lib/${container_proj}:${container_env}-${version} -f ./Dockerfile ."
     sh "docker images"
-    log.i "删除镜像"
-    sh "docker ps -q | xargs docker rmi -f"
     log.i '构建完成'
 }
 
@@ -47,7 +44,9 @@ def uploadToHarbor(container_proj, container_env) {
     sh "docker tag lib/${container_proj}:${container_env}-${version} $harboarDomain/lib/${container_proj}:${container_env}-${version}"
     sh "docker push $harboarDomain/lib/${container_proj}:${container_env}-${version}"
     sh "docker logout $harboarDomain"
-    log.i '传送完毕'
+    log.i '传送完毕,开始删除镜像'
+    sh "docker images -q | xargs docker rmi -f"
+    log.i "删除完成"
 }
 
 
