@@ -3,25 +3,11 @@ package com.xueqiu.infra
 def build(container_env, container_proj, build_zip_path, build_zip_file, build_unzip_dir) {
     def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     sh "mkdir -p /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com"
-    sh "echo '-----BEGIN CERTIFICATE-----\n" +
-            "MIIDEzCCAfugAwIBAgIQMEl2iGP3MmlNmIXeN5W+7DANBgkqhkiG9w0BAQsFADAU\n" +
-            "MRIwEAYDVQQDEwloYXJib3ItY2EwHhcNMjIwMTEzMDc1NjE4WhcNMjMwMTEzMDc1\n" +
-            "NjE4WjAUMRIwEAYDVQQDEwloYXJib3ItY2EwggEiMA0GCSqGSIb3DQEBAQUAA4IB\n" +
-            "DwAwggEKAoIBAQDDNfHPQzKFm5ZtGf+svrZJhgve5CoRYQ/Qa1Q7YJC7Pn0a+UGf\n" +
-            "pH5Aq2wK5bvTXUp+X4X/StEgpMuvOhuhaJKsKDBvDydbIZf3VmH7IrD+KUk+XMtO\n" +
-            "bKeMGS9NHDPEY2oLC2omSATPXIscsJmFrBY4G3PvFB/oCzKKiHIPCWnHV9ygs6FQ\n" +
-            "Hwjc3Kh4c1k0zjYAoiNvrhEsIrr3Ev359CVTX2mG+OC8/Q5zmMx3onyvMushsKWH\n" +
-            "uuMxuoqIZ5hMWFFehp/MjbcQz2BBgbRnAAjXAT0sAThiFZjTgV5Llrd2iHLfZK5e\n" +
-            "skG145/BRAun/1f/CxS2z0gQuaOXOIUuowlVAgMBAAGjYTBfMA4GA1UdDwEB/wQE\n" +
-            "AwICpDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDwYDVR0TAQH/BAUw\n" +
-            "AwEB/zAdBgNVHQ4EFgQUdVV3mENmafG8oe3ryRon4rvKavYwDQYJKoZIhvcNAQEL\n" +
-            "BQADggEBACAmz36fuGOZOPt9Aixzx5TOwnWuntWDGaQJu0AzLE3RKQ8T5XsnxDen\n" +
-            "7SzUmzSz5ikx61cKgIBFg9/UCOKibXVI4GtUgstwgPec7XZLgg225yySPfdNxaVQ\n" +
-            "fGOjTq4tZXbuSm95Izty87vPkYWn+R7LdAt0hiXqAyw/jKmXR3qLSkmobZdOOT6j\n" +
-            "a7l79WxRHKIa0jUh5QB34ZzJ1B8QCc/rkW/Sp/9RakhgK4AFmK1P1Izr1DoIGKmb\n" +
-            "mIFHlUwGeAOQqMfsSUODqxFvNBg6cL35zbdXkZ9j2aEcFD3VGUkd8OX0G+cLdgpv\n" +
-            "X1LcPyW1wsUELAYDUM/JqFq1fCbVGNg=\n" +
-            "-----END CERTIFICATE-----' >> /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
+
+    def crt = readFile "ca.crt"
+    sh "echo crt"
+
+    sh "echo '$crt' >> /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
 
     log.i '开始Docker镜像构建'
     def dockerFile = libraryResource("docker/Dockerfile")
