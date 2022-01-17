@@ -41,7 +41,7 @@ def call() {
                             stage('生成镜像') {
                                 steps {
                                     script {
-                                        docker.build()
+                                      docker.build()
                                     }
                                 }
                             }

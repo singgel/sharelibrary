@@ -36,7 +36,8 @@ def build() {
     sh "chmod 777 ./deploy_3_start.sh"
     sh "chmod 777 ./deploy_2_replace.sh"
 
-    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${container_env}-${version} -f ./Dockerfile ."
+    Config.settings.image_version = "${container_env}-${version}"
+    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version} -f ./Dockerfile ."
     sh "docker images"
     log.i '构建完成'
 }
@@ -48,14 +49,17 @@ def uploadToHarbor() {
     def container_proj = Config.settings.container_proj
     def container_env  = Config.settings.container_env
     def harboarDomain  = Config.settings.harbor_domain
-    def version        = Config.settings.git_version
+
+    def oldImageName = "${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
+    def newImageName = "$harboarDomain/${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
 
     sh "docker login $harboarDomain -u admin -p Xq-Harbor-Aliyun-K8s"
-    sh "docker tag ${Config.settings.repository_group}/${container_proj}:${container_env}-${version} $harboarDomain/${Config.settings.repository_group}/${container_proj}:${container_env}-${version}"
-    sh "docker push $harboarDomain/${Config.settings.repository_group}/${container_proj}:${container_env}-${version}"
+    sh "docker tag $oldImageName $newImageName"
+    sh "docker push $newImageName"
     sh "docker logout $harboarDomain"
     log.i '传送完毕,开始删除本地镜像'
-    sh "docker rmi -f ${Config.settings.repository_group}/${container_proj}:${container_env}-${version}"
+    sh "docker rmi -f $oldImageName"
+    sh "docker rmi -f $newImageName"
     log.i "删除完成"
 }
 

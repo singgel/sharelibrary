@@ -15,7 +15,8 @@ def defaultSettings(){
             build_zip_file    : "${env.build_zip_file}",
             build_unzip_dir   : "${env.build_unzip_dir}",
             repository_group  : '',
-            git_version       : ''
+            git_version       : '',
+            image_version     : ''
     ]
 }
 
