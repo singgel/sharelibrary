@@ -29,7 +29,8 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     def startShell = libraryResource("shell/deploy_3_start.sh")
     def replaceShell = libraryResource("shell/deploy_2_replace.sh")
 
-    writeFile file: './Dockerfile', text: dockerFile
+    String path = sh(returnStdout: true, script: "pwd").trim()
+    writeFile file: "$path/Dockerfile", text: dockerFile
     writeFile file: './deploy_1_stop.sh', text: stopShell
     writeFile file: './deploy_3_start.sh', text: startShell
     writeFile file: './deploy_2_replace.sh', text: replaceShell
@@ -41,7 +42,7 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
 //    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
 //    sh "cat ./Dockerfile"
 
-    String path = sh(returnStdout: true, script: "pwd").trim()
+
     File file = new File("$path/Dockerfile")
     String text = file.text
     text = text.replaceAll("\\{\\{CONTAINER_EN}}","${container_env}")
@@ -49,7 +50,7 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     text = text.replaceAll("\\{\\{BUILD_ZIP_PATH}}","${build_zip_path}")
     text = text.replaceAll("\\{\\{BUILD_ZIP_FILE}}","${build_zip_file}")
     text = text.replaceAll("\\{\\{BUILD_UNZIP_DIR}}","${build_unzip_dir}")
-    sh "echo $text > Dockerfile"
+    sh "echo $text > ./Dockerfile"
     sh "cat ./Dockerfile"
 
 
