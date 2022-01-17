@@ -41,7 +41,7 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
 //    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
 //    sh "cat ./Dockerfile"
 
-    String path = sh("pwd")
+    String path = sh(returnStdout: true, script: "pwd").trim()
     File file = new File("$path/Dockerfile")
     String text = file.text
     text = text.replaceAll("\\{\\{CONTAINER_EN}}","${container_env}")
