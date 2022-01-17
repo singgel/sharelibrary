@@ -12,5 +12,3 @@ ADD  ./deploy_2_replace.sh /data/deploy/deploy_2_replace.sh
 ADD  ./deploy_3_start.sh /data/deploy/deploy_3_start.sh
 
 RUN /data/deploy/deploy_2_replace.sh
-
-ENTRYPOINT ["sh","/data/deploy/deploy_3_start.sh"]
