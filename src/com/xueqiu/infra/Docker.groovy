@@ -10,24 +10,30 @@ def build(container_env, container_proj, build_zip_path, build_zip_file, build_u
     sh "echo '$crt' > /etc/docker/certs.d/xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/ca.crt"
 
     log.i '开始Docker镜像构建'
-    def dockerFile = libraryResource("docker/Dockerfile")
+    String dockerFile = libraryResource("docker/Dockerfile")
     def stopShell = libraryResource("shell/deploy_1_stop.sh")
     def startShell = libraryResource("shell/deploy_3_start.sh")
     def replaceShell = libraryResource("shell/deploy_2_replace.sh")
 
-    writeFile file: "./Dockerfile", text: dockerFile
+//    writeFile file: "./Dockerfile", text: dockerFile
     writeFile file: './deploy_1_stop.sh', text: stopShell
     writeFile file: './deploy_3_start.sh', text: startShell
     writeFile file: './deploy_2_replace.sh', text: replaceShell
 
-    sh "echo $build_zip_path > build_zip_path.txt"
-    def zipPath = sh(returnStdout: true, script: "sed 's/\\//\\\\\\//g' build_zip_path.txt").trim()
+//    sh "echo $build_zip_path > build_zip_path.txt"
+//    def zipPath = sh(returnStdout: true, script: "sed 's/\\//\\\\\\//g' build_zip_path.txt").trim()
 
-    sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
-    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
-    sh "sed -i 's/{{BUILD_ZIP_PATH}}/${zipPath}/g' ./Dockerfile"
-    sh "sed -i 's/{{BUILD_ZIP_FILE}}/${build_zip_file}/g' ./Dockerfile"
-    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile"
+//    sh "sed -i 's/{{CONTAINER_ENV}}/${container_env}/g' ./Dockerfile"
+//    sh "sed -i 's/{{CONTAINER_PROJ}}/${container_proj}/g' ./Dockerfile"
+//    sh "sed -i 's/{{BUILD_ZIP_PATH}}/${zipPath}/g' ./Dockerfile"
+//    sh "sed -i 's/{{BUILD_ZIP_FILE}}/${build_zip_file}/g' ./Dockerfile"
+//    sh "sed -i 's/{{BUILD_UNZIP_DIR}}/${build_unzip_dir}/g' ./Dockerfile
+    dockerFile = dockerFile.replaceAll("\\{\\{CONTAINER_ENV}}","${container_env}")
+    dockerFile = dockerFile.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
+    dockerFile = dockerFile.replaceAll("\\{\\{BUILD_ZIP_PATH}}","${build_zip_path}")
+    dockerFile = dockerFile.replaceAll("\\{\\{BUILD_ZIP_FILE}}","${build_zip_file}")
+    dockerFile = dockerFile.replaceAll("\\{\\{BUILD_UNZIP_DIR}}","${build_unzip_dir}")
+    writeFile file: "./Dockerfile", text: dockerFile
     sh "cat ./Dockerfile"
 
 
