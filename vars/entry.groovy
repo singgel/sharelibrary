@@ -3,14 +3,15 @@ import com.xueqiu.infra.Git
 import com.xueqiu.infra.Docker
 
 def call() {
-
-    node {
-        settings.config()
-    }
-
     def git    = new Git()
     def docker = new Docker()
     def deploymentCanary = new DeploymentCanary()
+
+    node {
+        settings.config()
+        wrap([$class: 'BuildUser']) {
+            Config.settings.deploy_user = env.BUILD_USER_ID
+        }
 
     pipeline
             {
@@ -94,4 +95,5 @@ def call() {
                         }
             }
 
+  }
 }

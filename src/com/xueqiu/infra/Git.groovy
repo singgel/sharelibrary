@@ -25,7 +25,7 @@ def clone() {
 
 def build() {
  try {
-    log.i '开始打包'
+     log.i '开始打包'
      sh("pwd")
      sh 'mvn clean package -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -gs /home/jenkins/settings/settings.xml'
      log.i '打包完成'
