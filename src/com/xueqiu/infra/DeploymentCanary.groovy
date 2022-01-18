@@ -78,7 +78,7 @@ def deplyStable() {
     sh "kubectl apply -f /home/jenkins/deployment-stable.yml --record"
 }
 
-def deplyOperation(deployment_name, stable) {
+def deplyOperation() {
     def deployment_name = Config.settings.container_proj
     def stable = Config.settings.stable
     def operationInput = input(
@@ -101,14 +101,14 @@ def deplyOperation(deployment_name, stable) {
     }
 }
 
-def waitingStable(deployment_name, stable) {
+def waitingStable() {
     def deployment_name = Config.settings.container_proj
     def stable = Config.settings.stable
     echo "等待pod部署完成"
     sh "kubectl rollout status deployment ${deployment_name}${stable}"
 }
 
-def finishStable(deployment_name, stable) {
+def finishStable() {
     def deployment_name = Config.settings.container_proj
     def stable = Config.settings.stable
     echo "等待pod部署完成"
