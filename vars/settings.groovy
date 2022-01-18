@@ -18,7 +18,12 @@ def defaultSettings(){
             git_version       : '',
             image_version     : '',
             webhook           : "${env.webhook}",
-            deploy_user       : ""
+            deploy_user       : "",
+            ready_time        : "${env.ready_time}",
+            max_surge         : "${env.max_surge}",
+            replicas_number   : "${env.replicas_number}",
+            canary            : "-canary",
+            stable            : ""
     ]
 }
 
