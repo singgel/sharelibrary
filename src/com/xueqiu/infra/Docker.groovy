@@ -68,12 +68,19 @@ def deploy() {
     def container_proj = Config.settings.container_proj
     def container_env  = Config.settings.container_env
     def version        = Config.settings.git_version
+    def harbor_domain  = Config.settings.harbor_domain
+    def repository_group = Config.settings.repository_group
+    def image_version  = Config.settings.image_version
 
     String deploymentFile = libraryResource("k8s/deployment.yaml")
 
     deploymentFile = deploymentFile.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
     deploymentFile = deploymentFile.replaceAll("\\{\\{CONTAINER_ENV}}","${container_env}")
     deploymentFile = deploymentFile.replaceAll("\\{\\{GIT_VERSION}}","${version}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{harbor_domain}}","${harbor_domain}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{repository_group}}","${repository_group}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{image_version}}","${image_version}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{image_name}}","${container_proj}")
     writeFile file: './deployment.yaml', text: deploymentFile
 
     sh "cat ./deployment.yaml"
