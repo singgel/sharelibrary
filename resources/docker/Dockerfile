@@ -1,6 +1,6 @@
 FROM xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/library/xq-base-java8:v2020
 MAINTAINER sre@xueqiu.com
-LABEL description={{GIT_COMMENT}}
+LABEL description="{{GIT_COMMENT}}"
 
 ENV CONTAINER_ENV {{CONTAINER_ENV}}
 ENV CONTAINER_PROJ {{CONTAINER_PROJ}}
