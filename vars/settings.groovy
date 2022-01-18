@@ -16,7 +16,9 @@ def defaultSettings(){
             build_unzip_dir   : "${env.build_unzip_dir}",
             repository_group  : '',
             git_version       : '',
-            image_version     : ''
+            image_version     : '',
+            webhook           : "${env.webhook}",
+            deploy_user       : "${env.BUILD_USER}"
     ]
 }
 
