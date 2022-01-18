@@ -42,7 +42,7 @@ def sedArg() {
 
 def deployCanary() {
     def deployment_name = Config.settings.container_proj
-    def canary = Config.settings.stable
+    def canary = Config.settings.canary
     sh "kubectl apply -f ./deployment-canary.yaml --record"
     sh "kubectl rollout status deployment ${deployment_name}${canary}"
     echo '部署金丝雀完成'
