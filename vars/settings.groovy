@@ -21,7 +21,7 @@ def defaultSettings(){
             max_surge         : "${env.max_surge}",
             replicas_number   : "${env.replicas_number}",
             canary            : "-canary",
-            stable            : "-stable"
+            stable            : ""
     ]
 }
 
