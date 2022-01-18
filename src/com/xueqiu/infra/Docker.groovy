@@ -22,12 +22,15 @@ def build() {
     writeFile file: './deploy_3_start.sh', text: startShell
     writeFile file: './deploy_2_replace.sh', text: replaceShell
 
+    def comment = sh(returnStdout: true, script: "git show ${version} --pretty='%s' | head -1").trim()
+
     String dockerFile = libraryResource("docker/Dockerfile")
     dockerFile = dockerFile.replaceAll("\\{\\{CONTAINER_ENV}}","${container_env}")
     dockerFile = dockerFile.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
     dockerFile = dockerFile.replaceAll("\\{\\{BUILD_ZIP_PATH}}","${build_zip_path}")
     dockerFile = dockerFile.replaceAll("\\{\\{BUILD_ZIP_FILE}}","${build_zip_file}")
     dockerFile = dockerFile.replaceAll("\\{\\{BUILD_UNZIP_DIR}}","${build_unzip_dir}")
+    dockerFile = dockerFile.replaceAll("\\{\\{GIT_COMMENT}}","${comment}")
     writeFile file: "./Dockerfile", text: dockerFile
     sh "cat ./Dockerfile"
 
@@ -37,8 +40,8 @@ def build() {
     sh "chmod 777 ./deploy_2_replace.sh"
 
     Config.settings.image_version = "${container_env}-${version}"
-    def comment = sh(returnStdout: true, script: "git show ${version} --pretty='%s' | head -1").trim()
-    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version} -f ./Dockerfile --label 'description='$comment''."
+
+    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version} -f ./Dockerfile ."
     sh "docker images"
     log.i '构建完成'
 }
