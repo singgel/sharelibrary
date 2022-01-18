@@ -20,7 +20,7 @@ def call() {
 
                 tools
                         {
-                            maven 'maven-3.8.4'
+                            maven 'maven-3.6.1'
                         }
 
                 stages
