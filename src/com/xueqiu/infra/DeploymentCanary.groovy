@@ -53,7 +53,7 @@ def deplyCanary() {
     echo '部署金丝雀完成'
 }
 
-def checkCanary( {
+def checkCanary() {
     def deployment_name = Config.settings.container_proj
     def canary = Config.settings.canary
     echo "检查你的金丝雀pod"
