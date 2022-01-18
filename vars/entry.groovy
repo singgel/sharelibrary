@@ -59,6 +59,36 @@ def call() {
                                     }
                                 }
                             }
+                            stage('部署金丝雀') {
+                                steps {
+                                    script {
+                                        deploymentCanary.deployCanary()
+                                        deploymentCanary.checkCanary()
+                                    }
+                                }
+                            }
+                            stage('部署正式版本') {
+                                steps {
+                                    script {
+                                        deploymentCanary.deployStable()
+                                    }
+                                }
+                            }
+                            stage('部署操作') {
+                                steps {
+                                    script {
+                                        deploymentCanary.deployOperation()
+                                    }
+                                }
+                            }
+                            stage('等待部署完成') {
+                                steps {
+                                    script {
+                                        deploymentCanary.waitingStable()
+                                        deploymentCanary.finishStable()
+                                    }
+                                }
+                            }
                         }
             }
 

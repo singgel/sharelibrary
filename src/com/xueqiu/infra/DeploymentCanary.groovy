@@ -1,8 +1,6 @@
 package com.xueqiu.infra
 
 def sedArg() {
-    def canary = "-canary"
-    def stable = "-stable"
     def deployment_name = Config.settings.container_proj
     def image_name = Config.settings.container_proj
     def image_version = Config.settings.image_version
@@ -42,7 +40,7 @@ def sedArg() {
 }
 
 
-def deplyCanary() {
+def deployCanary() {
     def deployment_name = Config.settings.container_proj
     def canary = Config.settings.stable
     sh "kubectl apply -f ./deployment-canary.yaml --record"
@@ -70,12 +68,12 @@ def checkCanary() {
     sh "kubectl delete deployment ${deployment_name}${canary}"
 }
 
-def deplyStable() {
+def deployStable() {
     echo "检查你的正式pod"
     sh "kubectl apply -f /home/jenkins/deployment-stable.yaml --record"
 }
 
-def deplyOperation() {
+def deployOperation() {
     def deployment_name = Config.settings.container_proj
     def stable = Config.settings.stable
     def operationInput = input(
