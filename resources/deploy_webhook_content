@@ -1,0 +1,18 @@
+{"msg_type":"interactive","card":{
+  "config": {
+    "wide_screen_mode": true
+  },
+  "header": {
+    "title": {
+      "tag": "plain_text",
+      "content": "应用部署提醒"
+    },
+    "template": "blue"
+  },
+  "elements": [
+    {
+      "tag": "markdown",
+      "content": "**应用名:** {{project_name}}\n**部署环境:** {{deploy_env}}\n**部署状态:** {{deploy_status}}\n**部署人:** {{deploy_user}}\n**部署时间:** {{deploy_date}}\n"
+    }
+  ]
+}}

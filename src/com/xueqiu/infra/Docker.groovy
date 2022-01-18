@@ -9,14 +9,14 @@ def build() {
     def build_zip_file  = Config.settings.build_zip_file
     def build_unzip_dir = Config.settings.build_unzip_dir
 
-    def harboarDomain = Config.settings.harbor_domain
+    def harborDomain = Config.settings.harbor_domain
     def crt = libraryResource("ca.crt")
-    sh "mkdir -p /etc/docker/certs.d/$harboarDomain"
-    sh "echo '$crt' > /etc/docker/certs.d/$harboarDomain/ca.crt"
+    sh "mkdir -p /etc/docker/certs.d/$harborDomain"
+    sh "echo '$crt' > /etc/docker/certs.d/$harborDomain/ca.crt"
 
-    def version = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    def stopShell = libraryResource("shell/deploy_1_stop.sh")
-    def startShell = libraryResource("shell/deploy_3_start.sh")
+    def version      = Config.settings.git_version
+    def stopShell    = libraryResource("shell/deploy_1_stop.sh")
+    def startShell   = libraryResource("shell/deploy_3_start.sh")
     def replaceShell = libraryResource("shell/deploy_2_replace.sh")
     writeFile file: './deploy_1_stop.sh', text: stopShell
     writeFile file: './deploy_3_start.sh', text: startShell
@@ -47,16 +47,15 @@ def uploadToHarbor() {
     log.i '将构建结果上传到Harbor镜像仓库'
 
     def container_proj = Config.settings.container_proj
-    def container_env  = Config.settings.container_env
-    def harboarDomain  = Config.settings.harbor_domain
+    def harborDomain  = Config.settings.harbor_domain
 
     def oldImageName = "${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
-    def newImageName = "$harboarDomain/${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
+    def newImageName = "$harborDomain/${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
 
-    sh "docker login $harboarDomain -u admin -p Xq-Harbor-Aliyun-K8s"
+    sh "docker login $harborDomain -u admin -p Xq-Harbor-Aliyun-K8s"
     sh "docker tag $oldImageName $newImageName"
     sh "docker push $newImageName"
-    sh "docker logout $harboarDomain"
+    sh "docker logout $harborDomain"
     log.i '传送完毕,开始删除本地镜像'
     sh "docker rmi -f $oldImageName"
     sh "docker rmi -f $newImageName"
@@ -69,12 +68,19 @@ def deploy() {
     def container_proj = Config.settings.container_proj
     def container_env  = Config.settings.container_env
     def version        = Config.settings.git_version
+    def harbor_domain  = Config.settings.harbor_domain
+    def repository_group = Config.settings.repository_group
+    def image_version  = Config.settings.image_version
 
     String deploymentFile = libraryResource("k8s/deployment.yaml")
 
     deploymentFile = deploymentFile.replaceAll("\\{\\{CONTAINER_PROJ}}","${container_proj}")
     deploymentFile = deploymentFile.replaceAll("\\{\\{CONTAINER_ENV}}","${container_env}")
     deploymentFile = deploymentFile.replaceAll("\\{\\{GIT_VERSION}}","${version}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{harbor_domain}}","${harbor_domain}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{repository_group}}","${repository_group}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{image_version}}","${image_version}")
+    deploymentFile = deploymentFile.replaceAll("\\{\\{image_name}}","${container_proj}")
     writeFile file: './deployment.yaml', text: deploymentFile
 
     sh "cat ./deployment.yaml"
@@ -82,6 +88,8 @@ def deploy() {
     sh "kubectl apply -f ./deployment.yaml"
 
     log.i '部署命令下发完成'
+
+    Webhook.info '部署命令下发完成'
 }
 
 return this
