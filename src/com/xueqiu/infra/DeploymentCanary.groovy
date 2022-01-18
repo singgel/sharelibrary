@@ -70,7 +70,7 @@ def checkCanary() {
 
 def deployStable() {
     echo "检查你的正式pod"
-    sh "kubectl apply -f /home/jenkins/deployment-stable.yaml --record"
+    sh "kubectl apply -f ./deployment-stable.yaml --record"
 }
 
 def deployOperation() {
