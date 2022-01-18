@@ -5,6 +5,9 @@ def call() {
 
     node {
         settings.config()
+        wrap([$class: 'BuildUser']) {
+            Config.settings.deploy_user = env.BUILD_USER_ID
+        }
     }
 
     def git    = new Git()
