@@ -1,3 +1,4 @@
+import com.xueqiu.infra.DeploymentCanary
 import com.xueqiu.infra.Git
 import com.xueqiu.infra.Docker
 
@@ -9,6 +10,7 @@ def call() {
 
     def git    = new Git()
     def docker = new Docker()
+    def deploymentCanary = new DeploymentCanary()
 
     pipeline
             {
