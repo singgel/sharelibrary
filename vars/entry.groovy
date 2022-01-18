@@ -54,6 +54,13 @@ def call() {
                                     }
                                 }
                             }
+                            stage('替换参数') {
+                                steps {
+                                    script {
+                                        deploymentCanary.sedArg()
+                                    }
+                                }
+                            }
                             stage('部署金丝雀') {
                                 steps {
                                     script {
