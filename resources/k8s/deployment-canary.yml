@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{deployment-name}}-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{app-name}}
+  minReadySeconds: {{ready-time}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: {{app-name}}
+        track: canary
+    spec:
+      containers:
+      - name: {{deployment-name}}
+        image: {{harbor_domain}}/{{repository_group}}/{{image-name}}:{{image-version}}
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8080
+            name: web
+            protocol: TCP
+          - containerPort: 6567
+            name: grpc
+            protocol: TCP
+        tty: true

@@ -1,5 +1,6 @@
 import com.xueqiu.infra.Git
 import com.xueqiu.infra.Docker
+import com.xueqiu.infra.DeploymentCanary
 
 def call() {
 
@@ -9,6 +10,7 @@ def call() {
 
     def git    = new Git()
     def docker = new Docker()
+    def deploymentCanary = new DeploymentCanary()
 
     pipeline
             {
@@ -52,10 +54,10 @@ def call() {
                                     }
                                 }
                             }
-                            stage('部署') {
+                            stage('替换参数') {
                                 steps {
                                     script {
-                                        docker.deploy()
+                                        deploymentCanary.sedArg()
                                     }
                                 }
                             }
