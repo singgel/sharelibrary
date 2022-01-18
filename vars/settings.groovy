@@ -16,11 +16,11 @@ def defaultSettings(){
             build_unzip_dir   : "${env.build_unzip_dir}",
             repository_group  : '',
             git_version       : '',
-            image_version     : ''
-            ready_time        : "${env.ready_time}"
-            max_surge         : "${env.max_surge}"
-            replicas_number   : "${env.replicas_number}"
-            canary            : "-canary"
+            image_version     : '',
+            ready_time        : "${env.ready_time}",
+            max_surge         : "${env.max_surge}",
+            replicas_number   : "${env.replicas_number}",
+            canary            : "-canary",
             stable            : "-stable"
     ]
 }
