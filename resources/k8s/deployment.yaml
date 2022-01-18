@@ -30,8 +30,7 @@ spec:
               value: ALI_BJ
             - name: CONTAINER_PROGRAM
               value: APP
-          image: >-
-            xq-harbor-ingress.ce027df6a3ed8476bb82b2cd0e6f6f219.cn-beijing.alicontainer.com/lib/{{CONTAINER_PROJ}}:{{CONTAINER_ENV}}-{{GIT_VERSION}}
+          image: {{harbor_domain}}/{{repository_group}}/{{image_name}}:{{image_version}}
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
