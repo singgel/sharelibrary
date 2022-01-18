@@ -1,5 +1,5 @@
 // 引用共享库
-    @Library("sharelibrary") _
+    @Library("ygy_sharelibrary") _
 
     entry()
 

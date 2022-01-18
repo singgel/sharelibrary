@@ -37,7 +37,8 @@ def build() {
     sh "chmod 777 ./deploy_2_replace.sh"
 
     Config.settings.image_version = "${container_env}-${version}"
-    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version} -f ./Dockerfile ."
+    def comment = sh(returnStdout: true, script: "git show ${version} --pretty='%s' | head -1").trim()
+    sh "docker build -t ${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version} -f ./Dockerfile --label 'description=$comment'."
     sh "docker images"
     log.i '构建完成'
 }
