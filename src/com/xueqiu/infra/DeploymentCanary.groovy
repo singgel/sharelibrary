@@ -11,36 +11,33 @@ def sedArg() {
     def replicas_number = Config.settings.replicas_number
     def harbor_domain = Config.settings.harbor_domain
     def repository_group = Config.settings.repository_group
-    
-    sh "cp /home/jenkins/deployment-template/deployment-canary.yml /home/jenkins/deployment-canary.yml"
-    sh "cp /home/jenkins/deployment-template/deployment-stable.yml /home/jenkins/deployment-stable.yml"
 
     def deploymentCanaryFile = libraryResource("k8s/deployment-canary.yaml")
     writeFile file: './deployment-canary.yaml', text: deploymentCanaryFile
     def deploymentStableFile = libraryResource("k8s/deployment-stable.yaml")
     writeFile file: './deployment-stable.yaml', text: deploymentStableFile
     
-    sh "sed -i 's/{{deployment-name}}/${deployment_name}/g' ./deployment-canary.yml"
-    sh "sed -i 's/{{ready-time}}/${ready_time}/g' ./deployment-canary.yml"
-    sh "sed -i 's/{{image-name}}/${image_name}/g' ./deployment-canary.yml"
-    sh "sed -i 's/{{image-version}}/${image_version}/g' ./deployment-canary.yml"
-    sh "sed -i 's/{{app-name}}/${deployment_name}/g' ./deployment-canary.yml"
-    sh "sed -i 's/{{harbor_domain}}/${harbor_domain}/g' ./deployment-canary.yml"
-    sh "sed -i 's/{{repository_group}}/${repository_group}/g' ./deployment-canary.yml"
+    sh "sed -i 's/{{deployment-name}}/${deployment_name}/g' ./deployment-canary.yaml"
+    sh "sed -i 's/{{ready-time}}/${ready_time}/g' ./deployment-canary.yaml"
+    sh "sed -i 's/{{image-name}}/${image_name}/g' ./deployment-canary.yaml"
+    sh "sed -i 's/{{image-version}}/${image_version}/g' ./deployment-canary.yaml"
+    sh "sed -i 's/{{app-name}}/${deployment_name}/g' ./deployment-canary.yaml"
+    sh "sed -i 's/{{harbor_domain}}/${harbor_domain}/g' ./deployment-canary.yaml"
+    sh "sed -i 's/{{repository_group}}/${repository_group}/g' ./deployment-canary.yaml"
     
-    sh "sed -i 's/{{deployment-name}}/${deployment_name}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{ready-time}}/${ready_time}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{image-name}}/${image_name}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{image-version}}/${image_version}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{app-name}}/${deployment_name}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{replicas-number}}/${replicas_number}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{max-surge}}/${max_surge}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{harbor_domain}}/${harbor_domain}/g' ./deployment-stable.yml"
-    sh "sed -i 's/{{repository_group}}/${repository_group}/g' ./deployment-stable.yml"
+    sh "sed -i 's/{{deployment-name}}/${deployment_name}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{ready-time}}/${ready_time}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{image-name}}/${image_name}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{image-version}}/${image_version}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{app-name}}/${deployment_name}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{replicas-number}}/${replicas_number}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{max-surge}}/${max_surge}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{harbor_domain}}/${harbor_domain}/g' ./deployment-stable.yaml"
+    sh "sed -i 's/{{repository_group}}/${repository_group}/g' ./deployment-stable.yaml"
     
     
-    sh "cat ./deployment-canary.yml"
-    sh "cat ./deployment-stable.yml"
+    sh "cat ./deployment-canary.yaml"
+    sh "cat ./deployment-stable.yaml"
     echo '替换参数完成'
 }
 
@@ -48,7 +45,7 @@ def sedArg() {
 def deplyCanary() {
     def deployment_name = Config.settings.container_proj
     def canary = Config.settings.stable
-    sh "kubectl apply -f ./deployment-canary.yml --record"
+    sh "kubectl apply -f ./deployment-canary.yaml --record"
     sh "kubectl rollout status deployment ${deployment_name}${canary}"
     echo '部署金丝雀完成'
 }
@@ -75,7 +72,7 @@ def checkCanary() {
 
 def deplyStable() {
     echo "检查你的正式pod"
-    sh "kubectl apply -f /home/jenkins/deployment-stable.yml --record"
+    sh "kubectl apply -f /home/jenkins/deployment-stable.yaml --record"
 }
 
 def deplyOperation() {
