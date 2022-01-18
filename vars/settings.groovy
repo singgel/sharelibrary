@@ -18,7 +18,7 @@ def defaultSettings(){
             git_version       : '',
             image_version     : '',
             webhook           : "${env.webhook}",
-            deploy_user       : "${env.BUILD_USER}"
+            deploy_user       : ""
     ]
 }
 
