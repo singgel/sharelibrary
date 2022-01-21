@@ -14,4 +14,6 @@ if [ ! -h /data/deploy/$PRJ/logs ];then
   ln -s /persist/logs /data/deploy/$PRJ/logs
 fi
 
+echo '{{CONTAINER_HOST}}' >> /etc/hosts
+
 nohup /data/deploy/$PRJ/bin/$SCRIPT_START --env=$ENV >> /data/deploy/$PRJ/bin/nohup.out 2>&1 &

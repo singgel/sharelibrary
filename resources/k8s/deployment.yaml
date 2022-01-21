@@ -33,6 +33,10 @@ spec:
           image: {{harbor_domain}}/{{repository_group}}/{{image_name}}:{{image_version}}
           imagePullPolicy: IfNotPresent
           lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /data/deploy/deploy_3_start.sh
             preStop:
               exec:
                 command:
