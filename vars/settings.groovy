@@ -11,6 +11,8 @@ def defaultSettings(){
             git_credentialsId : "${env.git_credentialsId}",
             container_env     : "${env.container_env}",
             container_proj    : "${env.container_proj}",
+            container_region  : "${env.container_region}",
+            container_host    : "${env.container_host}",
             build_zip_path    : "${env.build_zip_path}",
             build_zip_file    : "${env.build_zip_file}",
             build_unzip_dir   : "${env.build_unzip_dir}",

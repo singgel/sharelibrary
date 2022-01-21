@@ -23,6 +23,15 @@ spec:
       - name: {{deployment-name}}
         image: {{harbor_domain}}/{{repository_group}}/{{image-name}}:{{image-version}}
         imagePullPolicy: IfNotPresent
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - /data/deploy/deploy_3_start.sh
+          preStop:
+            exec:
+              command:
+                - /data/deploy/deploy_1_stop.sh
         ports:
           - containerPort: 8080
             name: web
