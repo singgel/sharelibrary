@@ -25,7 +25,7 @@ def call() {
                 tools
                         {
                             jdk 'jdk1.8.0_221'
-                            maven 'test-maven-3.6.1'
+                            maven 'maven-3.6.1'
                         }
                 stages
                         {
