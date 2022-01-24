@@ -1,13 +1,13 @@
 import com.xueqiu.infra.DeploymentCanary
 import com.xueqiu.infra.Git
 import com.xueqiu.infra.Docker
-import com.xueqiu.infra.Maven
+import com.xueqiu.infra.MavenUtil
 
 def call() {
     def git    = new Git()
     def docker = new Docker()
     def deploymentCanary = new DeploymentCanary()
-    def maven = new Maven()
+    def mavenUtil = new MavenUtil()
 
     node {
         settings.config()
@@ -32,7 +32,7 @@ def call() {
                             stage('初始化环境') {
                                 steps {
                                     script {
-                                        maven.Unzip()
+                                        mavenUtil.Unzip()
                                     }
                                 }
                             }
