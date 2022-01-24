@@ -1,11 +1,13 @@
 import com.xueqiu.infra.DeploymentCanary
 import com.xueqiu.infra.Git
 import com.xueqiu.infra.Docker
+import com.xueqiu.infra.MavenUtil
 
 def call() {
     def git    = new Git()
     def docker = new Docker()
     def deploymentCanary = new DeploymentCanary()
+    def mavenUtil = new MavenUtil()
 
     node {
         settings.config()
@@ -27,6 +29,13 @@ def call() {
                         }
                 stages
                         {
+                            stage('初始化Maven环境') {
+                                steps {
+                                    script {
+                                        mavenUtil.Unzip()
+                                    }
+                                }
+                            }
                             stage('下载源码') {
                                 steps {
                                     script {
