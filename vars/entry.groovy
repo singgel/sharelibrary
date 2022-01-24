@@ -29,7 +29,7 @@ def call() {
                         }
                 stages
                         {
-                            stage('初始化环境') {
+                            stage('初始化Maven环境') {
                                 steps {
                                     script {
                                         mavenUtil.Unzip()
