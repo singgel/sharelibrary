@@ -1,5 +1,5 @@
 // 引用共享库
-    @Library("swj_sharelibrary") _
+    @Library("sharelibrary") _
 
     entry()
 
