@@ -9,6 +9,7 @@ def defaultSettings(){
             git_repo          : "${env.git_repo}",
             git_branchName    : "${env.git_branchName}",
             git_credentialsId : "${env.git_credentialsId}",
+            harbor_credentialsId : "${env.harbor_credentialsId}",
             container_env     : "${env.container_env}",
             container_proj    : "${env.container_proj}",
             container_region  : "${env.container_region}",

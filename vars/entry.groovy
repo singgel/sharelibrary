@@ -8,6 +8,7 @@ def call() {
     def docker = new Docker()
     def deploymentCanary = new DeploymentCanary()
     def mavenUtil = new MavenUtil()
+    def skipWait = false
 
     node {
         settings.config()
@@ -78,6 +79,13 @@ def call() {
                                         deploymentCanary.checkCanary()
                                     }
                                 }
+                                post {
+                                    aborted {
+                                        script {
+                                            deploymentCanary.deleteCanary()
+                                        }
+                                    }
+                                }
                             }
                             stage('部署正式版本') {
                                 steps {
@@ -89,15 +97,17 @@ def call() {
                             stage('部署操作') {
                                 steps {
                                     script {
-                                        deploymentCanary.deployOperation()
+                                        skipWait =  deploymentCanary.deployOperation()
                                     }
                                 }
                             }
                             stage('等待部署完成') {
                                 steps {
                                     script {
-                                        deploymentCanary.waitingStable()
-                                        deploymentCanary.finishStable()
+                                        if (!skipWait) {
+                                            deploymentCanary.waitingStable()
+                                            deploymentCanary.finishStable()
+                                        }
                                     }
                                 }
                             }
