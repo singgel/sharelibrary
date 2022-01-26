@@ -67,7 +67,7 @@ def uploadToHarbor() {
     def oldImageName = "${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
     def newImageName = "$harborDomain/${Config.settings.repository_group}/${container_proj}:${Config.settings.image_version}"
 
-    sh "docker login $harborDomain -u admin -p Xq-Harbor-Aliyun-K8s"
+    login(harborDomain)
     sh "docker tag $oldImageName $newImageName"
     sh "docker push $newImageName"
     sh "docker logout $harborDomain"
@@ -100,11 +100,23 @@ def deploy() {
 
     sh "cat ./deployment.yaml"
 
-    sh "kubectl apply -f ./deployment.yaml"
+    sh "kubectl apply -f ./deployment.yaml -n ${repository_group}"
 
     log.i '部署命令下发完成'
 
     Webhook.info '部署命令下发完成'
+}
+
+def login(harborDomain){
+    withCredentials([
+            usernamePassword(
+                    credentialsId: Config.settings.harbor_credentialsId,
+                    passwordVariable: 'registry_password',
+                    usernameVariable: 'registry_username'
+            )
+    ]){
+        sh("docker login -u " + registry_username + " -p "  +  registry_password + " " + harborDomain)
+    }
 }
 
 return this

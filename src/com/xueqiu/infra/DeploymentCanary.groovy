@@ -43,8 +43,8 @@ def sedArg() {
 def deployCanary() {
     def deployment_name = Config.settings.container_proj
     def canary = Config.settings.canary
-    sh "kubectl apply -f ./deployment-canary.yaml --record"
-    sh "kubectl rollout status deployment ${deployment_name}${canary}"
+    cmd("apply -f ./deployment-canary.yaml --record")
+    cmd("rollout status deployment ${deployment_name}${canary}")
     echo '部署金丝雀完成'
 }
 
@@ -52,10 +52,10 @@ def checkCanary() {
     def deployment_name = Config.settings.container_proj
     def canary = Config.settings.canary
     echo "检查你的金丝雀pod"
-    sh "kubectl describe deployment ${deployment_name}${canary}"
+    cmd("describe deployment ${deployment_name}${canary}")
     def checkInput = input(
         id: 'checkInput',
-        message: 'check your canary pod',
+        message: '请检查金丝雀服务是否正常',
         parameters: [
             [
                 $class: 'ChoiceParameterDefinition',
@@ -65,12 +65,19 @@ def checkCanary() {
         ]
     )
     echo "This is a deploy step to ${checkInput}"
-    sh "kubectl delete deployment ${deployment_name}${canary}"
+    cmd("delete deployment ${deployment_name}${canary}")
+}
+
+def deleteCanary() {
+    def deployment_name = Config.settings.container_proj
+    def canary = Config.settings.canary
+    echo "删除金丝雀pod: ${deployment_name}${canary}"
+    cmd("delete deployment ${deployment_name}${canary}")
 }
 
 def deployStable() {
     echo "检查你的正式pod"
-    sh "kubectl apply -f ./deployment-stable.yaml --record"
+    cmd("apply -f ./deployment-stable.yaml --record")
 }
 
 def deployOperation() {
@@ -78,7 +85,7 @@ def deployOperation() {
     def stable = Config.settings.stable
     def operationInput = input(
         id: 'operationInput',
-        message: 'need you do',
+        message: '请选择操作',
         parameters: [
             [
                 $class: 'ChoiceParameterDefinition',
@@ -87,27 +94,49 @@ def deployOperation() {
             ]
         ]
     )
+
+    def skipWait = false
     if (operationInput == "Pause") {
-        sh "kubectl rollout pause deployment ${deployment_name}${stable}"
+         cmd("rollout pause deployment ${deployment_name}${stable}")
     } else if (operationInput == "Undo"){
-        sh "kubectl rollout undo deployment ${deployment_name}${stable}"
+        def repository_group = Config.settings.repository_group
+        def generation = sh(returnStdout: true, script: "kubectl rollout history deployment ${deployment_name}${stable} " +
+                "-o jsonpath='{.metadata.annotations.deployment\\.kubernetes\\.io/revision}' -n ${repository_group}").trim()
+        echo "generaion: $generation"
+        if (generation == "1") {
+            cmd("delete deployment ${deployment_name}${stable}")
+            skipWait = true
+        } else {
+            cmd("rollout undo deployment ${deployment_name}${stable}")
+        }
     } else if (operationInput == "Skip"){
         // deploy prod stuff
     }
+    return skipWait
 }
 
 def waitingStable() {
     def deployment_name = Config.settings.container_proj
     def stable = Config.settings.stable
     echo "等待pod部署完成"
-    sh "kubectl rollout status deployment ${deployment_name}${stable}"
+    cmd("rollout status deployment ${deployment_name}${stable}")
 }
 
 def finishStable() {
     def deployment_name = Config.settings.container_proj
     def stable = Config.settings.stable
     echo "等待pod部署完成"
-    sh "kubectl describe deployment ${deployment_name}${stable}"
+    cmd("describe deployment ${deployment_name}${stable}")
+}
+
+def String cmd(String c){
+    try {
+        def repository_group = Config.settings.repository_group
+        sh("kubectl $c  -n ${repository_group}")
+    }
+    catch (e) {
+        throw e
+    }
 }
 
 return this
