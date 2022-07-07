@@ -8,7 +8,7 @@ SCRIPT_START="start_server.sh"
 SCRIPT_STOP="stop_server.sh"
 
 # prepare env
-export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dxueqiu.env=$ENV -Dxueqiu.service=$PRJ"
+export _JAVA_OPTIONS="-Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Dheks.env=$ENV -Dheks.service=$PRJ"
 mkdir -p /persist/logs
 if [ ! -h /data/deploy/$PRJ/logs ];then
   ln -s /persist/logs /data/deploy/$PRJ/logs

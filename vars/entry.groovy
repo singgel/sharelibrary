@@ -1,7 +1,7 @@
-import com.xueqiu.infra.DeploymentCanary
-import com.xueqiu.infra.Git
-import com.xueqiu.infra.Docker
-import com.xueqiu.infra.MavenUtil
+import com.heks.infra.DeploymentCanary
+import com.heks.infra.Git
+import com.heks.infra.Docker
+import com.heks.infra.MavenUtil
 
 def call() {
     def git    = new Git()
@@ -20,7 +20,7 @@ def call() {
             {
                 agent
                         {
-                            label 'xueqiu-ack-jnlp'
+                            label 'heks-ack-jnlp'
                         }
 
                 tools

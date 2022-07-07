@@ -1,6 +1,6 @@
 /* log.groovy
    ##################################################
-   # Created by xueqiu        #
+   # Created by heks        #
    #                                                #
    # A Part of the Project jenkins-library          #
    ##################################################

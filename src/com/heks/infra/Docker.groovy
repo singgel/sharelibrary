@@ -1,4 +1,4 @@
-package com.xueqiu.infra
+package com.heks.infra
 
 def build() {
     log.i '开始Docker镜像构建'
